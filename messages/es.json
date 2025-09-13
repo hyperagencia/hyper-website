@@ -1,0 +1,73 @@
+{
+  "common": {
+    "navigation": {
+      "inicio": "Inicio",
+      "proyectos": "Proyectos",
+      "expertices": "Expertices",
+      "agencia": "Agencia",
+      "blog": "Blog",
+      "contacto": "Contacto"
+    },
+    "buttons": {
+      "ver_mas": "Ver más",
+      "contactanos": "Contáctanos",
+      "enviar": "Enviar",
+      "cancelar": "Cancelar",
+      "descargar": "Descargar",
+      "leer_mas": "Leer más"
+    },
+    "forms": {
+      "nombre": "Nombre",
+      "email": "Correo electrónico",
+      "mensaje": "Mensaje",
+      "telefono": "Teléfono",
+      "empresa": "Empresa",
+      "required": "Campo obligatorio"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Hyperagencia - Desarrollo Web y Marketing Digital",
+      "hero": {
+        "title": "Transformamos ideas en experiencias digitales",
+        "subtitle": "Somos una agencia digital especializada en desarrollo web, diseño UX/UI y marketing digital.",
+        "cta": "Ver nuestros proyectos"
+      },
+      "services": {
+        "title": "Nuestros servicios",
+        "subtitle": "Todo lo que necesitas para tu presencia digital"
+      }
+    },
+    "projects": {
+      "title": "Nuestros proyectos",
+      "subtitle": "Casos de éxito que nos enorgullecen",
+      "categories": {
+        "all": "Todos",
+        "web": "Desarrollo Web",
+        "mobile": "Apps Móviles",
+        "ecommerce": "E-commerce",
+        "branding": "Branding"
+      }
+    },
+    "expertices": {
+      "title": "Nuestras expertices",
+      "subtitle": "Servicios especializados para hacer crecer tu negocio"
+    },
+    "agency": {
+      "title": "Sobre nosotros",
+      "subtitle": "Conoce al equipo detrás de Hyperagencia"
+    },
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Artículos, tutoriales y novedades del mundo digital"
+    },
+    "contact": {
+      "title": "Contacto",
+      "subtitle": "¿Tienes un proyecto en mente? Hablemos"
+    }
+  },
+  "metadata": {
+    "title": "Hyperagencia - Desarrollo Web y Marketing Digital",
+    "description": "Agencia digital especializada en desarrollo web, diseño UX/UI y marketing digital. Transformamos ideas en experiencias digitales exitosas."
+  }
+}

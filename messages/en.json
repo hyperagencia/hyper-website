@@ -1,0 +1,73 @@
+{
+  "common": {
+    "navigation": {
+      "inicio": "Home",
+      "proyectos": "Projects", 
+      "expertices": "Expertises",
+      "agencia": "Agency",
+      "blog": "Blog",
+      "contacto": "Contact"
+    },
+    "buttons": {
+      "ver_mas": "See more",
+      "contactanos": "Contact us",
+      "enviar": "Send",
+      "cancelar": "Cancel",
+      "descargar": "Download",
+      "leer_mas": "Read more"
+    },
+    "forms": {
+      "nombre": "Name",
+      "email": "Email",
+      "mensaje": "Message",
+      "telefono": "Phone",
+      "empresa": "Company",
+      "required": "Required field"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Hyperagency - Web Development & Digital Marketing",
+      "hero": {
+        "title": "We transform ideas into digital experiences",
+        "subtitle": "We are a digital agency specialized in web development, UX/UI design and digital marketing.",
+        "cta": "View our projects"
+      },
+      "services": {
+        "title": "Our services",
+        "subtitle": "Everything you need for your digital presence"
+      }
+    },
+    "projects": {
+      "title": "Our projects",
+      "subtitle": "Success cases we're proud of",
+      "categories": {
+        "all": "All",
+        "web": "Web Development",
+        "mobile": "Mobile Apps",
+        "ecommerce": "E-commerce",
+        "branding": "Branding"
+      }
+    },
+    "expertices": {
+      "title": "Our expertises",
+      "subtitle": "Specialized services to grow your business"
+    },
+    "agency": {
+      "title": "About us",
+      "subtitle": "Meet the team behind Hyperagency"
+    },
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Articles, tutorials and news from the digital world"
+    },
+    "contact": {
+      "title": "Contact",
+      "subtitle": "Have a project in mind? Let's talk"
+    }
+  },
+  "metadata": {
+    "title": "Hyperagency - Web Development & Digital Marketing",
+    "description": "Digital agency specialized in web development, UX/UI design and digital marketing. We transform ideas into successful digital experiences."
+  }
+}
