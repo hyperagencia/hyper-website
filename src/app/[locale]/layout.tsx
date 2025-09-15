@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import GlassmorphismHeader from '@/components/layout/GlassmorphismHeader';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -28,9 +29,17 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      </head>
+      <body className="font-sans antialiased bg-white">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <GlassmorphismHeader />
+          <main>
+            {children}
+          </main>
         </NextIntlClientProvider>
       </body>
     </html>

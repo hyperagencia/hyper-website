@@ -6,7 +6,15 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      backdropBlur: {
+        'xs': '2px',
+        'xl': '24px',
+      }
+    },
   },
   plugins: [],
 }
