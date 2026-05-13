@@ -27,15 +27,52 @@
   },
   "pages": {
     "home": {
-      "title": "Hyperagencia - Desarrollo Web y Marketing Digital",
+      "title": "Hyper — Agencia de Branding y Tecnología",
       "hero": {
         "title": "Transformamos ideas en experiencias digitales",
         "subtitle": "Somos una agencia digital especializada en desarrollo web, diseño UX/UI y marketing digital.",
-        "cta": "Ver nuestros proyectos"
+        "cta": "Ver nuestros proyectos",
+        "title_line1": "Future of",
+        "title_line2": "brands",
+        "hero_subtitle": "Transformamos marcas con branding estratégico y experiencias digitales que generan resultados.",
+        "label_agency": "Agencia de Branding y Tecnología",
+        "label_since": "© Since 2013 – 2026"
+      },
+      "video": {
+        "play_label": "Play Video"
+      },
+      "about": {
+        "paragraph": "Somos una agencia de branding y tecnología en Chile. Construimos identidades de marca, diseñamos experiencias digitales y desarrollamos sitios web y aplicaciones para empresas que quieren conectar con sus audiencias de verdad.",
+        "cta": "Ver servicios"
       },
       "services": {
         "title": "Nuestros servicios",
         "subtitle": "Todo lo que necesitas para tu presencia digital"
+      },
+      "projects": {
+        "heading": "Proyectos destacados",
+        "cta": "Ver más proyectos",
+        "items": {
+          "long_king": "Long King",
+          "kurrupt": "Kurrupt",
+          "zhapn": "ZHAPN",
+          "audi": "Audi",
+          "amava": "AMAVA",
+          "twilio": "Twilio",
+          "ola_digital": "Ola Digital",
+          "cumbre_studio": "Cumbre Studio"
+        }
+      },
+      "clients": {
+        "heading": "Hemos hecho un gran equipo juntos"
+      },
+      "expertices": {
+        "heading": "Nuestras dos especialidades",
+        "branding_title": "Branding",
+        "branding_description": "Creamos identidades visuales que comunican el carácter único de cada marca — desde el logotipo hasta el sistema completo.",
+        "tecnologia_title": "Tecnología",
+        "tecnologia_description": "Desarrollamos plataformas web y aplicaciones que combinan rendimiento técnico con una experiencia de usuario excepcional.",
+        "cta": "Ver expertices"
       }
     },
     "projects": {
@@ -55,7 +92,7 @@
     },
     "agency": {
       "title": "Sobre nosotros",
-      "subtitle": "Conoce al equipo detrás de Hyperagencia"
+      "subtitle": "Conoce al equipo detrás de Hyper"
     },
     "blog": {
       "title": "Blog",
@@ -66,8 +103,21 @@
       "subtitle": "¿Tienes un proyecto en mente? Hablemos"
     }
   },
+  "footer": {
+    "newsletter_cta": "Recibe algo de hype directamente en tu bandeja de entrada.",
+    "address_label": "Chile",
+    "address_line1": "Av. Pdte. Kennedy 5600",
+    "address_line2": "Ofic 507, Vitacura",
+    "address_city": "Santiago, Chile",
+    "nav_proyectos": "Proyectos",
+    "nav_servicios": "Servicios",
+    "nav_contacto": "Contacto",
+    "copyright": "© HYPER. 2026",
+    "privacy": "Políticas de privacidad",
+    "work_with_us": "Trabaja con nosotros"
+  },
   "metadata": {
-    "title": "Hyperagencia - Desarrollo Web y Marketing Digital",
-    "description": "Agencia digital especializada en desarrollo web, diseño UX/UI y marketing digital. Transformamos ideas en experiencias digitales exitosas."
+    "title": "Hyper — Agencia de Branding y Tecnología",
+    "description": "Agencia de branding y tecnología en Chile. Construimos identidades de marca, experiencias digitales y plataformas web para empresas que quieren conectar con sus audiencias."
   }
 }

@@ -33,7 +33,7 @@ const GlassmorphismHeader = () => {
   // Cambiar idioma
   const handleLanguageChange = (locale: string) => {
     router.replace(
-      // @ts-expect-error
+      // @ts-expect-error — next-intl router.replace types don't accept params object
       { pathname, params },
       { locale }
     );
@@ -76,28 +76,28 @@ const GlassmorphismHeader = () => {
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           isScrolled 
-            ? 'bg-white/80 backdrop-blur-xl shadow-sm' 
-            : 'bg-white/60 backdrop-blur-md'
+            ? 'bg-white/0 ' 
+            : 'bg-white/0 '
         }`}
       >
         {/* Contenido del header */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             
-            {/* Logo - Extremo izquierdo */}
-            <Link href="/" className="group">
-              <motion.div
+            {/* Logo */}
+            <Link href="/" className="group flex items-center">
+              <motion.img
+                src="/assets/logo/hyper-logo-dark.svg"
+                alt="Hyper"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
-                className="text-2xl font-bold tracking-tight text-gray-900 transition-colors duration-200"
-              >
-                Hyper
-              </motion.div>
+                className="h-9 w-auto"
+              />
             </Link>
 
             {/* Navegación central - Píldora redondeada */}
             <nav className="hidden lg:flex">
-              <div className="flex items-center bg-gray-200/80 backdrop-blur-md rounded-full p-1 shadow-lg border border-gray-300/30">
+              <div className="flex items-center bg-white/50 backdrop-blur-md rounded-full p-1 shadow-lg border border-gray-300/30">
                 {navigationItems.map((item) => (
                   <Link
                     key={item.key}
@@ -150,22 +150,22 @@ const GlassmorphismHeader = () => {
                       <button
                         onClick={() => handleLanguageChange('es')}
                         className={`w-full px-4 py-3 text-sm text-left transition-colors duration-200 ${
-                          currentLocale === 'es' 
-                            ? 'text-gray-900 bg-gray-50/50 font-medium' 
+                          currentLocale === 'es'
+                            ? 'text-gray-900 bg-gray-50/50 font-medium'
                             : 'text-gray-700 hover:bg-gray-50/50'
                         }`}
                       >
-                        🇪🇸 Español
+                        ES — Español
                       </button>
                       <button
                         onClick={() => handleLanguageChange('en')}
                         className={`w-full px-4 py-3 text-sm text-left transition-colors duration-200 ${
-                          currentLocale === 'en' 
-                            ? 'text-gray-900 bg-gray-50/50 font-medium' 
+                          currentLocale === 'en'
+                            ? 'text-gray-900 bg-gray-50/50 font-medium'
                             : 'text-gray-700 hover:bg-gray-50/50'
                         }`}
                       >
-                        🇺🇸 English
+                        EN — English
                       </button>
                     </motion.div>
                   )}

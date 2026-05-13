@@ -2,7 +2,7 @@
   "common": {
     "navigation": {
       "inicio": "Home",
-      "proyectos": "Projects", 
+      "proyectos": "Projects",
       "expertices": "Expertises",
       "agencia": "Agency",
       "blog": "Blog",
@@ -27,15 +27,52 @@
   },
   "pages": {
     "home": {
-      "title": "Hyperagency - Web Development & Digital Marketing",
+      "title": "Hyper — Branding & Technology Agency",
       "hero": {
         "title": "We transform ideas into digital experiences",
         "subtitle": "We are a digital agency specialized in web development, UX/UI design and digital marketing.",
-        "cta": "View our projects"
+        "cta": "View our projects",
+        "title_line1": "Future of",
+        "title_line2": "brands",
+        "hero_subtitle": "We transform brands with strategic branding and digital experiences that drive results.",
+        "label_agency": "Branding & Technology Agency",
+        "label_since": "© Since 2013 – 2026"
+      },
+      "video": {
+        "play_label": "Play Video"
+      },
+      "about": {
+        "paragraph": "We are a branding and technology agency based in Chile. We build brand identities, design digital experiences and develop websites and applications for companies that want to connect with their audiences for real.",
+        "cta": "View services"
       },
       "services": {
         "title": "Our services",
         "subtitle": "Everything you need for your digital presence"
+      },
+      "projects": {
+        "heading": "Featured projects",
+        "cta": "View all projects",
+        "items": {
+          "long_king": "Long King",
+          "kurrupt": "Kurrupt",
+          "zhapn": "ZHAPN",
+          "audi": "Audi",
+          "amava": "AMAVA",
+          "twilio": "Twilio",
+          "ola_digital": "Digital Wave",
+          "cumbre_studio": "Cumbre Studio"
+        }
+      },
+      "clients": {
+        "heading": "We've built great things together"
+      },
+      "expertices": {
+        "heading": "Our two core specialties",
+        "branding_title": "Branding",
+        "branding_description": "We craft visual identities that communicate the unique character of each brand — from the logo to the full system.",
+        "tecnologia_title": "Technology",
+        "tecnologia_description": "We develop web platforms and applications that combine technical performance with an exceptional user experience.",
+        "cta": "View expertises"
       }
     },
     "projects": {
@@ -55,7 +92,7 @@
     },
     "agency": {
       "title": "About us",
-      "subtitle": "Meet the team behind Hyperagency"
+      "subtitle": "Meet the team behind Hyper"
     },
     "blog": {
       "title": "Blog",
@@ -66,8 +103,21 @@
       "subtitle": "Have a project in mind? Let's talk"
     }
   },
+  "footer": {
+    "newsletter_cta": "Get some hype directly in your inbox.",
+    "address_label": "Chile",
+    "address_line1": "Av. Pdte. Kennedy 5600",
+    "address_line2": "Office 507, Vitacura",
+    "address_city": "Santiago, Chile",
+    "nav_proyectos": "Projects",
+    "nav_servicios": "Services",
+    "nav_contacto": "Contact",
+    "copyright": "© HYPER. 2026",
+    "privacy": "Privacy policy",
+    "work_with_us": "Work with us"
+  },
   "metadata": {
-    "title": "Hyperagency - Web Development & Digital Marketing",
-    "description": "Digital agency specialized in web development, UX/UI design and digital marketing. We transform ideas into successful digital experiences."
+    "title": "Hyper — Branding & Technology Agency",
+    "description": "Branding and technology agency based in Chile. We build brand identities, digital experiences and web platforms for companies that want to truly connect with their audiences."
   }
 }
