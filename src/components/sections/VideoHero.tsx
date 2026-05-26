@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
 const VIDEO_SRC = '/assets/video/hero.webm';
+const VIDEO_SRC_MOBILE = '/assets/video/hero-mobile.webm';
 
 export function VideoHeroSection() {
   const t = useTranslations('pages.home.video');

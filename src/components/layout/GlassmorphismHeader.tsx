@@ -243,7 +243,7 @@ const GlassmorphismHeader = () => {
                 {/* Footer del menú móvil */}
                 <div className="px-6 pt-6 border-t border-gray-200/50">
                   <p className="text-sm text-gray-500 text-center">
-                    © 2024 Hyperagencia
+                    © 2026 Hyperagencia
                   </p>
                 </div>
               </div>
