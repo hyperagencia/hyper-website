@@ -10,7 +10,7 @@ export function AboutSection() {
   const t = useTranslations('pages.home.about');
 
   return (
-    <section className="bg-[#e8e8e8] py-24 md:py-36 px-6 lg:px-8">
+    <section data-header-theme="light" className="bg-[#e8e8e8] py-24 md:py-36 px-6 lg:px-8">
       <motion.div
         initial="hidden"
         whileInView="visible"

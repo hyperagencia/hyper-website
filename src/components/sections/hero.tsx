@@ -8,7 +8,7 @@ export function HeroSection() {
   const t = useTranslations('pages.home.hero');
 
   return (
-    <section className="relative min-h-screen bg-white flex flex-col pt-20">
+    <section data-header-theme="light" className="relative min-h-screen bg-white flex flex-col pt-20">
       <motion.div
         initial="hidden"
         animate="visible"

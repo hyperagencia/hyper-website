@@ -2,17 +2,31 @@
 
 import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { getCldVideoUrl, getCldImageUrl } from 'next-cloudinary';
 
-const VIDEO_SRC = '/assets/video/hero.webm';
-const VIDEO_SRC_MOBILE = '/assets/video/hero-mobile.webm';
+const VIDEO_PUBLIC_ID = 'hero_sidotg';
 
 export function VideoHeroSection() {
   const t = useTranslations('pages.home.video');
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const videoSrc = getCldVideoUrl({
+    src: VIDEO_PUBLIC_ID,
+    width: 1920,
+    height: 1080,
+    rawTransformations: ['q_auto', 'f_auto'],
+  });
+  const poster = getCldImageUrl({
+    src: VIDEO_PUBLIC_ID,
+    width: 1920,
+    height: 1080,
+    format: 'auto',
+    quality: 'auto',
+  });
+
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !VIDEO_SRC) return;
+    if (!video) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -30,32 +44,19 @@ export function VideoHeroSection() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-black">
+    <section data-header-theme="dark" className="relative w-full overflow-hidden bg-black">
       <div className="relative w-full aspect-[4/5] md:aspect-video">
-        {VIDEO_SRC ? (
-          <video
-            ref={videoRef}
-            src={VIDEO_SRC}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-black">
-            <div
-              className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage:
-                  'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)',
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full bg-[#f1e066]/5 blur-3xl" />
-            </div>
-          </div>
-        )}
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          poster={poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="none"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
         {/* Play button */}
         <div className="absolute bottom-8 left-6 lg:left-8 flex items-center gap-4">

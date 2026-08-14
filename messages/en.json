@@ -6,7 +6,9 @@
       "expertices": "Expertises",
       "agencia": "Agency",
       "blog": "Blog",
-      "contacto": "Contact"
+      "contacto": "Contact",
+      "open_menu": "Open menu",
+      "close_menu": "Close menu"
     },
     "buttons": {
       "ver_mas": "See more",
@@ -51,17 +53,7 @@
       },
       "projects": {
         "heading": "Featured projects",
-        "cta": "View all projects",
-        "items": {
-          "long_king": "Long King",
-          "kurrupt": "Kurrupt",
-          "zhapn": "ZHAPN",
-          "audi": "Audi",
-          "amava": "AMAVA",
-          "twilio": "Twilio",
-          "ola_digital": "Digital Wave",
-          "cumbre_studio": "Cumbre Studio"
-        }
+        "cta": "View all projects"
       },
       "clients": {
         "heading": "We've built great things together"
@@ -80,15 +72,56 @@
       "subtitle": "Success cases we're proud of",
       "categories": {
         "all": "All",
-        "web": "Web Development",
-        "mobile": "Mobile Apps",
-        "ecommerce": "E-commerce",
-        "branding": "Branding"
+        "branding": "Branding",
+        "motion": "Motion",
+        "web": "Web",
+        "ui-ux": "UI & UX Design",
+        "app": "App",
+        "react": "React",
+        "nextjs": "Next.js",
+        "headless": "Headless",
+        "ecommerce": "e-Commerce",
+        "custom-development": "Custom Development",
+        "mobile": "Mobile"
+      },
+      "detail": {
+        "services_heading": "Services",
+        "explore_more_heading": "Explore more projects",
+        "close": "Close"
       }
     },
     "expertices": {
       "title": "Our expertises",
-      "subtitle": "Specialized services to grow your business"
+      "subtitle": "Specialized services to grow your business",
+      "hero": {
+        "title": "Challenges we help you solve",
+        "subtitle": "Our technology, branding and design services are built to connect brands with their audiences and create memorable digital experiences."
+      },
+      "methodology": {
+        "heading": "Our methodology",
+        "steps": {
+          "discovery": {
+            "title": "Discovery",
+            "description": "We understand your business, your users and your goals"
+          },
+          "strategy": {
+            "title": "Strategy & Design",
+            "description": "We define direction before we build"
+          },
+          "development": {
+            "title": "Development & Execution",
+            "description": "We build with precision and attention to detail"
+          },
+          "launch": {
+            "title": "Launch & Support",
+            "description": "We stay with the process once it's live, and beyond"
+          }
+        }
+      },
+      "closing": {
+        "heading": "Have a project in mind? Let's work together",
+        "cta": "Let's talk"
+      }
     },
     "agency": {
       "title": "About us",

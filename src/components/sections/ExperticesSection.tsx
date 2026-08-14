@@ -10,7 +10,7 @@ export function ExperticesSection() {
   const t = useTranslations('pages.home.expertices');
 
   return (
-    <section className="bg-black py-24 md:py-36 px-6 md:px-12 lg:px-16">
+    <section data-header-theme="dark" className="bg-black py-24 md:py-36 px-6 md:px-12 lg:px-16">
       {/* Heading */}
       <motion.div
         initial="hidden"

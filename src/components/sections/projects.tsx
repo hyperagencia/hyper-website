@@ -1,17 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
+import { ProjectCard } from '@/components/projects/ProjectCard';
 import { fadeInUp, staggerContainer, scaleIn } from '@/lib/animations';
-import { FEATURED_PROJECTS } from '@/lib/constants';
+import { getFeaturedProjects } from '@/data/projects';
 
 export function ProjectsSection() {
   const t = useTranslations('pages.home.projects');
+  const locale = useLocale();
+  const featuredProjects = getFeaturedProjects();
 
   return (
-    <section className="bg-white py-24 md:py-32 px-6 lg:px-8">
+    <section data-header-theme="light" className="bg-white py-24 md:py-32 px-6 lg:px-8">
       {/* Section heading */}
       <motion.div
         initial="hidden"
@@ -36,46 +39,10 @@ export function ProjectsSection() {
         variants={staggerContainer}
         className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3"
       >
-        {FEATURED_PROJECTS.map((project) => (
-          <motion.article
-            key={project.id}
-            variants={scaleIn}
-            className={`relative rounded-xl md:rounded-2xl overflow-hidden cursor-pointer group aspect-square ${
-              project.layout === 'full'
-                ? 'md:col-span-2 md:aspect-[5/2]'
-                : 'md:col-span-1'
-            }`}
-          >
-            {/* Gradient placeholder — replace with next/image when photos are available */}
-            <div
-              className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{
-                background: `linear-gradient(135deg, ${project.gradientFrom} 0%, ${project.gradientTo} 100%)`,
-              }}
-            />
-
-            {/* Vignette bottom */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-            {/* Category — top left */}
-            <div className="absolute top-4 left-4 flex gap-2">
-              {project.category.split(' · ').map((cat) => (
-                <span
-                  key={cat}
-                  className="text-white/70 text-[10px] md:text-xs font-medium tracking-wide uppercase bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10"
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-
-            {/* Project name — bottom left */}
-            <div className="absolute bottom-5 left-5 right-5">
-              <h3 className="text-white text-lg md:text-2xl lg:text-3xl font-medium leading-tight">
-                {t(`items.${project.titleKey}`)}
-              </h3>
-            </div>
-          </motion.article>
+        {featuredProjects.map((project) => (
+          <motion.div key={project.slug} variants={scaleIn} className={project.layout === 'full' ? 'md:col-span-2' : ''}>
+            <ProjectCard project={project} locale={locale} allowFullSpan />
+          </motion.div>
         ))}
       </motion.div>
 

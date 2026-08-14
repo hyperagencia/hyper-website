@@ -6,7 +6,7 @@ export function ClientsMarquee() {
   const allClients = [...CLIENT_NAMES, ...CLIENT_NAMES];
 
   return (
-    <section className="bg-white py-16 border-y border-[#e8e8e8] overflow-hidden">
+    <section data-header-theme="light" className="bg-white py-16 border-y border-[#e8e8e8] overflow-hidden">
       <p className="text-center text-xs uppercase tracking-[0.2em] text-black/40 mb-10 font-medium">
         {t('heading')}
       </p>

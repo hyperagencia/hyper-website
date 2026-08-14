@@ -1,252 +1,286 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
-import { usePathname } from '@/i18n/navigation';
-import { Globe, Menu, X } from 'lucide-react';
-import { useRouter } from '@/i18n/navigation';
+import * as React from 'react';
 import { useParams } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
+
+/* ─── Language switcher ──────────────────────────────── */
+
+function LanguageSwitcher({ surface }: { surface: 'dark' | 'light' }) {
+  const locale = useLocale();
+  const pathname = usePathname();
+  const params = useParams();
+  const router = useRouter();
+
+  const switchLocale = (next: string) => {
+    // @ts-expect-error -- next-intl's typed router.replace doesn't type a generic {pathname, params} pair, but this is the documented pattern for localized pathnames with dynamic segments.
+    router.replace({ pathname, params }, { locale: next });
+  };
+
+  const activeClass =
+    surface === 'light' ? 'text-[#111111] font-medium' : 'text-white font-medium';
+  const inactiveClass =
+    surface === 'light' ? 'text-[#111111]/40 hover:text-[#111111]' : 'text-white/40 hover:text-white';
+  const separatorClass = surface === 'light' ? 'text-[#111111]/20' : 'text-white/20';
+
+  return (
+    <div className="flex items-center gap-1 text-xs">
+      <button
+        onClick={() => switchLocale('es')}
+        className={cn('transition-colors duration-150 cursor-pointer', locale === 'es' ? activeClass : inactiveClass)}
+      >
+        ES
+      </button>
+      <span className={separatorClass}>/</span>
+      <button
+        onClick={() => switchLocale('en')}
+        className={cn('transition-colors duration-150 cursor-pointer', locale === 'en' ? activeClass : inactiveClass)}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
+
+/* ─── Icons ──────────────────────────────────────────── */
+
+function GridIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="6" y="0" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="12" y="0" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="0" y="6" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="6" y="6" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="12" y="6" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="0" y="12" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="6" y="12" width="4" height="4" rx="1" fill="currentColor" />
+      <rect x="12" y="12" width="4" height="4" rx="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+
+type Surface = 'dark' | 'light';
 
 const GlassmorphismHeader = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  
   const t = useTranslations('common.navigation');
+  const locale = useLocale();
   const pathname = usePathname();
-  const router = useRouter();
   const params = useParams();
-  const currentLocale = params.locale as string;
+  const router = useRouter();
 
-  // Detectar scroll para cambiar el header
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+  const [open, setOpen] = React.useState(false);
+  const [surface, setSurface] = React.useState<Surface>('light');
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Cambiar idioma
-  const handleLanguageChange = (locale: string) => {
-    router.replace(
-      // @ts-expect-error — next-intl router.replace types don't accept params object
-      { pathname, params },
-      { locale }
-    );
-    setIsLanguageOpen(false);
-  };
-
-  // Enlaces de navegación
-  const navigationItems = [
-    { href: '/', label: t('inicio'), key: 'home' },
-    { href: '/agencia', label: t('agencia'), key: 'about' },
-    { href: '/proyectos', label: t('proyectos'), key: 'work' },
-    { href: '/expertices', label: t('expertices'), key: 'expertise' },
-    { href: '/blog', label: t('blog'), key: 'thinking' },
-    { href: '/contacto', label: t('contacto'), key: 'contact' },
+  const navLinks: { href: '/' | '/agencia' | '/proyectos' | '/expertices' | '/blog'; label: string }[] = [
+    { href: '/', label: t('inicio') },
+    { href: '/agencia', label: t('agencia') },
+    { href: '/proyectos', label: t('proyectos') },
+    { href: '/expertices', label: t('expertices') },
+    { href: '/blog', label: t('blog') },
   ];
 
-  const isActivePath = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href);
-  };
+  React.useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>('[data-header-theme]');
+    if (sections.length === 0) return;
 
-  // Cerrar menús al hacer click fuera
-  useEffect(() => {
-    const handleClickOutside = () => {
-      setIsLanguageOpen(false);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const theme = entry.target.getAttribute('data-header-theme') as Surface;
+            setSurface(theme);
+          }
+        });
+      },
+      { rootMargin: '-64px 0px -97% 0px', threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  React.useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
     };
+  }, [open]);
 
-    if (isLanguageOpen) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }
-  }, [isLanguageOpen]);
+  const isLight = surface === 'light';
+
+  const switchLocale = (next: string) => {
+    setOpen(false);
+    // @ts-expect-error -- next-intl's typed router.replace doesn't type a generic {pathname, params} pair, but this is the documented pattern for localized pathnames with dynamic segments.
+    router.replace({ pathname, params }, { locale: next });
+  };
 
   return (
     <>
-      {/* Header principal */}
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-          isScrolled 
-            ? 'bg-white/0 ' 
-            : 'bg-white/0 '
-        }`}
-      >
-        {/* Contenido del header */}
-        <div className="px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            
-            {/* Logo */}
-            <Link href="/" className="group flex items-center">
-              <motion.img
-                src="/assets/logo/hyper-logo-dark.svg"
-                alt="Hyper"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-                className="h-9 w-auto"
-              />
-            </Link>
+      <header className="fixed inset-x-0 top-4 z-50">
+        {/* Desktop */}
+        <div className="mx-auto hidden h-8 w-full max-w-[1920px] items-stretch gap-2 px-4 md:flex lg:px-6">
+          <Link href="/" className="flex shrink-0 items-center rounded-[8px] bg-[#f1e066] px-4">
+            <img src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" className="h-3 w-auto" />
+          </Link>
 
-            {/* Navegación central - Píldora redondeada */}
-            <nav className="hidden lg:flex">
-              <div className="flex items-center bg-white/50 backdrop-blur-md rounded-full p-1 shadow-lg border border-gray-300/30">
-                {navigationItems.map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className="relative group"
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
-                      className={`px-5 py-2.5 text-sm font-medium transition-all duration-300 rounded-full ${
-                        isActivePath(item.href)
-                          ? 'bg-gray-800 text-white shadow-md'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-white/50'
-                      }`}
-                    >
-                      {item.label}
-                    </motion.div>
-                  </Link>
-                ))}
-              </div>
-            </nav>
-
-            {/* Selector de idioma - Extremo derecho */}
-            <div className="flex items-center space-x-3">
-              
-              {/* Selector de idioma */}
-              <div className="relative">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsLanguageOpen(!isLanguageOpen);
-                  }}
-                  className="flex items-center justify-center w-10 h-10 text-gray-700 rounded-full hover:bg-gray-100/50 transition-all duration-200 bg-gray-200/80 backdrop-blur-md shadow-sm border border-gray-300/30"
-                >
-                  <Globe className="w-5 h-5" />
-                </motion.button>
-
-                <AnimatePresence>
-                  {isLanguageOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-36 bg-white/95 backdrop-blur-xl rounded-xl shadow-xl border border-gray-200/50 overflow-hidden"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <button
-                        onClick={() => handleLanguageChange('es')}
-                        className={`w-full px-4 py-3 text-sm text-left transition-colors duration-200 ${
-                          currentLocale === 'es'
-                            ? 'text-gray-900 bg-gray-50/50 font-medium'
-                            : 'text-gray-700 hover:bg-gray-50/50'
-                        }`}
-                      >
-                        ES — Español
-                      </button>
-                      <button
-                        onClick={() => handleLanguageChange('en')}
-                        className={`w-full px-4 py-3 text-sm text-left transition-colors duration-200 ${
-                          currentLocale === 'en'
-                            ? 'text-gray-900 bg-gray-50/50 font-medium'
-                            : 'text-gray-700 hover:bg-gray-50/50'
-                        }`}
-                      >
-                        EN — English
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Botón menú móvil */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden flex items-center justify-center w-10 h-10 text-gray-700 rounded-full hover:bg-gray-100/50 transition-all duration-200 bg-gray-200/80 backdrop-blur-md shadow-sm border border-gray-300/30"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
+          <nav className="flex flex-1 items-stretch gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'flex flex-1 items-center justify-left px-6 rounded-[8px] text-xs backdrop-blur-md transition-colors duration-200 cursor-pointer',
+                  isLight
+                    ? 'bg-black/10 text-[#111111] hover:bg-[#111111] hover:text-white'
+                    : 'bg-[#383A39]/70 text-white hover:bg-[#EFEFEF] hover:text-[#111111]'
                 )}
-              </motion.button>
-            </div>
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <Link
+            href="/contacto"
+            className={cn(
+              'flex shrink-0 items-center rounded-[8px] px-6 text-xs font-medium transition-colors duration-200',
+              isLight
+                ? 'bg-[#111111] text-[#f1e066] hover:bg-[#111111]/85'
+                : 'bg-[#f1e066] text-[#111111] hover:bg-[#f1e066]/90'
+            )}
+          >
+            {t('contacto')}
+          </Link>
+
+          {/* Language switcher desktop */}
+          <div
+            className={cn(
+              'flex shrink-0 items-center rounded-[8px] px-3 backdrop-blur-md',
+              isLight ? 'bg-black/10' : 'bg-[#383A39]/70'
+            )}
+          >
+            <LanguageSwitcher surface={surface} />
           </div>
         </div>
-      </motion.header>
 
-      {/* Menú móvil */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 lg:hidden"
+        {/* Mobile bar */}
+        <div className="mx-4 flex h-14 items-center justify-between rounded-[16px] bg-[#f1e066] px-4 md:hidden">
+          <Link href="/" onClick={() => setOpen(false)} className="flex items-center">
+            <img src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" className="h-3 w-auto" />
+          </Link>
+          <button
+            type="button"
+            aria-label={open ? t('close_menu') : t('open_menu')}
+            onClick={() => setOpen((o) => !o)}
+            className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#111111] text-[#f1e066] transition-colors duration-200 cursor-pointer"
           >
-            {/* Backdrop */}
-            <div 
-              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            
-            {/* Panel del menú */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="absolute right-0 top-0 h-full w-80 max-w-sm bg-white/95 backdrop-blur-xl shadow-2xl border-l border-gray-200/50"
-            >
-              <div className="flex flex-col h-full pt-24 pb-6">
-                
-                {/* Navegación móvil */}
-                <nav className="flex-1 px-6 space-y-2">
-                  {navigationItems.map((item, index) => (
-                    <motion.div
-                      key={item.key}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.3 }}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`block px-4 py-3 text-lg font-medium rounded-xl transition-all duration-200 ${
-                          isActivePath(item.href)
-                            ? 'text-white bg-gray-800 shadow-lg'
-                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/50'
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </nav>
+            <AnimatePresence mode="wait" initial={false}>
+              {open ? (
+                <motion.span
+                  key="close"
+                  initial={{ opacity: 0, rotate: -45 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 45 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <CloseIcon />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="grid"
+                  initial={{ opacity: 0, rotate: 45 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -45 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <GridIcon />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
+      </header>
 
-                {/* Footer del menú móvil */}
-                <div className="px-6 pt-6 border-t border-gray-200/50">
-                  <p className="text-sm text-gray-500 text-center">
-                    © 2026 Hyperagencia
-                  </p>
-                </div>
-              </div>
+      {/* Mobile fullscreen menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-40 flex flex-col bg-[#111111] md:hidden"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Nav items */}
+            <div className="flex flex-1 flex-col justify-center gap-2 px-4 pt-28 pb-8">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 + 0.1, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="flex w-full items-center justify-between rounded-[14px] bg-[#191919] px-5 py-5 text-left text-xl font-normal text-white transition-colors duration-150 active:bg-[#f1e066] active:text-[#111111]"
+                  >
+                    <span>{link.label}</span>
+                    <span className="text-white/20 text-sm">↗</span>
+                  </Link>
+                </motion.div>
+              ))}
+
+              {/* Language switcher mobile */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 + 0.1, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="flex gap-2"
+              >
+                {['es', 'en'].map((loc) => (
+                  <button
+                    key={loc}
+                    onClick={() => switchLocale(loc)}
+                    className={cn(
+                      'flex-1 rounded-[14px] py-4 text-center text-base font-normal transition-colors duration-150 cursor-pointer',
+                      locale === loc ? 'bg-[#f1e066] text-[#111111]' : 'bg-[#191919] text-white/50'
+                    )}
+                  >
+                    {loc.toUpperCase()}
+                  </button>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* CTA fijo abajo */}
+            <motion.div
+              className="px-4 pb-8"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Link
+                href="/contacto"
+                onClick={() => setOpen(false)}
+                className="block w-full rounded-[14px] bg-[#f1e066] py-5 text-center text-base font-medium text-[#111111]"
+              >
+                {t('contacto')}
+              </Link>
             </motion.div>
           </motion.div>
         )}

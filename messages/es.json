@@ -6,7 +6,9 @@
       "expertices": "Expertices",
       "agencia": "Agencia",
       "blog": "Blog",
-      "contacto": "Contacto"
+      "contacto": "Contacto",
+      "open_menu": "Abrir menú",
+      "close_menu": "Cerrar menú"
     },
     "buttons": {
       "ver_mas": "Ver más",
@@ -51,17 +53,7 @@
       },
       "projects": {
         "heading": "Proyectos destacados",
-        "cta": "Ver más proyectos",
-        "items": {
-          "long_king": "Long King",
-          "kurrupt": "Kurrupt",
-          "zhapn": "ZHAPN",
-          "audi": "Audi",
-          "amava": "AMAVA",
-          "twilio": "Twilio",
-          "ola_digital": "Ola Digital",
-          "cumbre_studio": "Cumbre Studio"
-        }
+        "cta": "Ver más proyectos"
       },
       "clients": {
         "heading": "Hemos hecho un gran equipo juntos"
@@ -80,15 +72,56 @@
       "subtitle": "Casos de éxito que nos enorgullecen",
       "categories": {
         "all": "Todos",
-        "web": "Desarrollo Web",
-        "mobile": "Apps Móviles",
-        "ecommerce": "E-commerce",
-        "branding": "Branding"
+        "branding": "Branding",
+        "motion": "Motion",
+        "web": "Web",
+        "ui-ux": "UI & UX Design",
+        "app": "App",
+        "react": "React",
+        "nextjs": "Next.js",
+        "headless": "Headless",
+        "ecommerce": "e-Commerce",
+        "custom-development": "Custom Development",
+        "mobile": "Mobile"
+      },
+      "detail": {
+        "services_heading": "Servicios",
+        "explore_more_heading": "Explorar más proyectos",
+        "close": "Cerrar"
       }
     },
     "expertices": {
       "title": "Nuestras expertices",
-      "subtitle": "Servicios especializados para hacer crecer tu negocio"
+      "subtitle": "Servicios especializados para hacer crecer tu negocio",
+      "hero": {
+        "title": "Desafíos que te ayudamos a resolver",
+        "subtitle": "Nuestros servicios de tecnología, branding y diseño están hechos para conectar marcas con sus audiencias y crear experiencias digitales memorables."
+      },
+      "methodology": {
+        "heading": "Nuestra metodología",
+        "steps": {
+          "discovery": {
+            "title": "Descubrimiento",
+            "description": "Entendemos tu negocio, tus usuarios y tus objetivos"
+          },
+          "strategy": {
+            "title": "Estrategia & Diseño",
+            "description": "Definimos la dirección antes de construir"
+          },
+          "development": {
+            "title": "Desarrollo & Ejecución",
+            "description": "Construimos con precisión y foco en el detalle"
+          },
+          "launch": {
+            "title": "Lanzamiento & Soporte",
+            "description": "Acompañamos el proceso hasta que esté vivo, y en el futuro"
+          }
+        }
+      },
+      "closing": {
+        "heading": "¿Tienes un proyecto en mente? Trabajemos juntos",
+        "cta": "Hablemos"
+      }
     },
     "agency": {
       "title": "Sobre nosotros",
