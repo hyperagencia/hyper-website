@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
@@ -134,7 +135,7 @@ const GlassmorphismHeader = () => {
         {/* Desktop */}
         <div className="mx-auto hidden h-8 w-full max-w-[1920px] items-stretch gap-2 px-4 md:flex lg:px-6">
           <Link href="/" className="flex shrink-0 items-center rounded-[8px] bg-[#f1e066] px-4">
-            <img src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" className="h-3 w-auto" />
+            <Image src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" width={287} height={108} priority className="h-3 w-auto" />
           </Link>
 
           <nav className="flex flex-1 items-stretch gap-2">
@@ -180,7 +181,7 @@ const GlassmorphismHeader = () => {
         {/* Mobile bar */}
         <div className="mx-4 flex h-14 items-center justify-between rounded-[16px] bg-[#f1e066] px-4 md:hidden">
           <Link href="/" onClick={() => setOpen(false)} className="flex items-center">
-            <img src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" className="h-3 w-auto" />
+            <Image src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" width={287} height={108} priority className="h-3 w-auto" />
           </Link>
           <button
             type="button"

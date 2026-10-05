@@ -1,19 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
-import { Linkedin, Instagram } from 'lucide-react';
-
-function TikTokIcon() {
-  return (
-    <svg
-      className="w-5 h-5"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z" />
-    </svg>
-  );
-}
+import { AnimatedLink, AnimatedExternalLink } from '@/components/ui/AnimatedLink';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -41,24 +27,15 @@ export function Footer() {
 
           <nav className="flex flex-col gap-2">
             <p className="text-black font-semibold text-sm mb-1">Explora</p>
-            <Link
-              href="/proyectos"
-              className="text-black/70 text-sm hover:text-black transition-colors"
-            >
+            <AnimatedLink href="/proyectos" className="text-black/70 text-sm hover:text-black transition-colors">
               {t('nav_proyectos')}
-            </Link>
-            <Link
-              href="/expertices"
-              className="text-black/70 text-sm hover:text-black transition-colors"
-            >
+            </AnimatedLink>
+            <AnimatedLink href="/expertices" className="text-black/70 text-sm hover:text-black transition-colors">
               {t('nav_servicios')}
-            </Link>
-            <Link
-              href="/contacto"
-              className="text-black/70 text-sm hover:text-black transition-colors"
-            >
+            </AnimatedLink>
+            <AnimatedLink href="/contacto" className="text-black/70 text-sm hover:text-black transition-colors">
               {t('nav_contacto')}
-            </Link>
+            </AnimatedLink>
           </nav>
         </div>
       </div>
@@ -71,48 +48,30 @@ export function Footer() {
         <span className="text-sm text-black/50">{t('copyright')}</span>
 
         <div className="flex items-center gap-6">
-          <Link
-            href="/privacidad"
-            className="text-sm text-black/50 hover:text-black transition-colors"
-          >
+          <AnimatedLink href="/privacidad" className="text-sm text-black/50 hover:text-black transition-colors">
             {t('privacy')}
-          </Link>
-          <Link
-            href="/trabaja"
-            className="text-sm text-black/50 hover:text-black transition-colors"
-          >
+          </AnimatedLink>
+          <AnimatedLink href="/terminos" className="text-sm text-black/50 hover:text-black transition-colors">
+            {t('terms')}
+          </AnimatedLink>
+          <AnimatedLink href="/trabaja" className="text-sm text-black/50 hover:text-black transition-colors">
             {t('work_with_us')}
-          </Link>
+          </AnimatedLink>
         </div>
 
-        <div className="flex items-center gap-5">
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-black/50 hover:text-black transition-colors"
-            aria-label="LinkedIn"
+        <div className="flex items-center gap-6">
+          <AnimatedExternalLink
+            href="https://www.linkedin.com/company/hyper-branding-agency-spa"
+            className="text-sm text-black/50 hover:text-black transition-colors"
           >
-            <Linkedin className="w-5 h-5" />
-          </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-black/50 hover:text-black transition-colors"
-            aria-label="Instagram"
+            LinkedIn
+          </AnimatedExternalLink>
+          <AnimatedExternalLink
+            href="https://instagram.com/hyperagencia/"
+            className="text-sm text-black/50 hover:text-black transition-colors"
           >
-            <Instagram className="w-5 h-5" />
-          </a>
-          <a
-            href="https://tiktok.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-black/50 hover:text-black transition-colors"
-            aria-label="TikTok"
-          >
-            <TikTokIcon />
-          </a>
+            Instagram
+          </AnimatedExternalLink>
         </div>
       </div>
 

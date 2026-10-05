@@ -20,6 +20,7 @@ export const routing = defineRouting({
     '/blog': '/blog',
     '/blog/[slug]': '/blog/[slug]',
     '/privacidad': '/privacidad',
+    '/terminos': '/terminos',
     '/trabaja': '/trabaja',
   },
 });
