@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['neue-haas-grotesk-text', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['neue-haas-grotesk-display', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         brand: {
