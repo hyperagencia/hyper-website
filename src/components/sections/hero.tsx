@@ -17,7 +17,7 @@ export function HeroSection() {
       >
         {/* Left — editorial headline */}
         <motion.div variants={fadeInUp} className="flex flex-col justify-center">
-          <h1 className="font-medium leading-none tracking-tighter text-black select-none">
+          <h1 className="font-display font-medium leading-none tracking-tighter text-black select-none">
             <span className="block text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8.5rem] xl:text-[10rem]">
               {t('title_line1')}
             </span>

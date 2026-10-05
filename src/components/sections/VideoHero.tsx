@@ -1,62 +1,15 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { getCldVideoUrl, getCldImageUrl } from 'next-cloudinary';
-
-const VIDEO_PUBLIC_ID = 'hero_sidotg';
+import { LoopVideo } from '@/components/ui/LoopVideo';
 
 export function VideoHeroSection() {
   const t = useTranslations('pages.home.video');
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const videoSrc = getCldVideoUrl({
-    src: VIDEO_PUBLIC_ID,
-    width: 1920,
-    height: 1080,
-    rawTransformations: ['q_auto', 'f_auto'],
-  });
-  const poster = getCldImageUrl({
-    src: VIDEO_PUBLIC_ID,
-    width: 1920,
-    height: 1080,
-    format: 'auto',
-    quality: 'auto',
-  });
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section data-header-theme="dark" className="relative w-full overflow-hidden bg-black">
       <div className="relative w-full aspect-[4/5] md:aspect-video">
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          poster={poster}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="none"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        <LoopVideo className="absolute inset-0 w-full h-full object-cover" />
 
         {/* Play button */}
         <div className="absolute bottom-8 left-6 lg:left-8 flex items-center gap-4">
