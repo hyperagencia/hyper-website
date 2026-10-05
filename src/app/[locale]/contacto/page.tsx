@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 import { RotatingGreeting } from '@/components/contact/RotatingGreeting';
 import { ContactForm } from '@/components/contact/ContactForm';
 
@@ -8,11 +9,8 @@ interface ContactPageProps {
 
 export async function generateMetadata({ params }: ContactPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.contact' });
-  return {
-    title: t('title'),
-    description: t('subtitle'),
-  };
+  const t = await getTranslations({ locale, namespace: 'metadata.pages.contact' });
+  return buildPageMetadata({ locale, href: '/contacto', title: t('title'), description: t('description') });
 }
 
 export default async function ContactPage({ params }: ContactPageProps) {

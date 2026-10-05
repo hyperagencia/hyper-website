@@ -1,3 +1,5 @@
+import { buildPageMetadata } from '@/lib/seo';
+import { getTranslations } from 'next-intl/server';
 import { LegalPageLayout } from '@/components/legal/LegalPageLayout';
 import { TERMS_AND_CONDITIONS } from '@/data/legal';
 
@@ -7,8 +9,8 @@ interface TermsPageProps {
 
 export async function generateMetadata({ params }: TermsPageProps) {
   const { locale } = await params;
-  const localeKey = locale as 'es' | 'en';
-  return { title: TERMS_AND_CONDITIONS.title[localeKey] };
+  const t = await getTranslations({ locale, namespace: 'metadata.pages.terms' });
+  return buildPageMetadata({ locale, href: '/terminos', title: t('title'), description: t('description') });
 }
 
 export default async function TermsPage({ params }: TermsPageProps) {

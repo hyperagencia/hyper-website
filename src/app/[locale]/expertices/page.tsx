@@ -1,9 +1,16 @@
 import { getTranslations } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { PillarCard } from '@/components/services/PillarCard';
 import { ProcessSteps } from '@/components/services/ProcessSteps';
 import { PILLARS } from '@/data/services';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.pages.expertices' });
+  return buildPageMetadata({ locale, href: '/expertices', title: t('title'), description: t('description') });
+}
 
 export default async function ExperticesPage() {
   const t = await getTranslations('pages.expertices');

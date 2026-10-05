@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 
 interface BlogPageProps {
   params: Promise<{ locale: string }>;
@@ -6,8 +7,8 @@ interface BlogPageProps {
 
 export async function generateMetadata({ params }: BlogPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.blog' });
-  return { title: t('title') };
+  const t = await getTranslations({ locale, namespace: 'metadata.pages.blog' });
+  return buildPageMetadata({ locale, href: '/blog', title: t('title'), description: t('description'), noindex: true });
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {

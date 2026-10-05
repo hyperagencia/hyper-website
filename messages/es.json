@@ -37,7 +37,7 @@
         "title_line1": "Future of",
         "title_line2": "brands",
         "hero_subtitle": "Transformamos marcas con branding estratégico y experiencias digitales que generan resultados.",
-        "label_agency": "Agencia de Branding y Tecnología",
+        "label_agency": "Agencia de Branding y Tecnología en Santiago, Chile",
         "label_since": "© Since 2013 – 2026"
       },
       "video": {
@@ -223,6 +223,41 @@
   },
   "metadata": {
     "title": "Hyper — Agencia de Branding y Tecnología",
-    "description": "Agencia de branding y tecnología en Chile. Construimos identidades de marca, experiencias digitales y plataformas web para empresas que quieren conectar con sus audiencias."
+    "description": "Agencia de branding y tecnología en Chile. Construimos identidades de marca, experiencias digitales y plataformas web para empresas que quieren conectar con sus audiencias.",
+    "pages": {
+      "home": {
+        "title": "Agencia de Branding y Tecnología en Chile — Hyper",
+        "description": "Somos Hyper, agencia de branding y tecnología en Chile. Construimos marcas, diseñamos experiencias digitales y desarrollamos sitios web y aplicaciones a medida."
+      },
+      "agency": {
+        "title": "Quiénes Somos — Agencia de Branding en Santiago — Hyper",
+        "description": "Más de 10 años construyendo marcas y productos digitales en Chile. Conoce a Hyper, agencia de branding y tecnología en Santiago."
+      },
+      "projects": {
+        "title": "Proyectos — Portafolio de Branding y Web — Hyper",
+        "description": "Proyectos de branding, diseño web y desarrollo digital en minería, belleza, cultura, salud, moda y más industrias en Chile."
+      },
+      "expertices": {
+        "title": "Servicios de Branding, Diseño Web y Desarrollo — Hyper",
+        "description": "Branding, diseño digital y desarrollo web bajo el mismo techo. Identidad visual, UI/UX, e-commerce, web apps y más. Agencia en Chile."
+      },
+      "contact": {
+        "title": "Hablemos — Inicia tu Proyecto — Hyper",
+        "description": "¿Tienes un proyecto en mente? Cuéntanos qué necesitas y te respondemos en menos de 24 horas."
+      },
+      "blog": {
+        "title": "Blog — Hyper",
+        "description": "Artículos sobre branding, diseño y tecnología. Próximamente."
+      },
+      "privacy": {
+        "title": "Política de Privacidad — Hyper",
+        "description": "Cómo Hyper recopila, usa y protege tus datos personales."
+      },
+      "terms": {
+        "title": "Términos y Condiciones — Hyper",
+        "description": "Términos y condiciones de uso del sitio web de Hyper."
+      }
+    },
+    "og_tagline": "Agencia de Branding y Tecnología"
   }
 }

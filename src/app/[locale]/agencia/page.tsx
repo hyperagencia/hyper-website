@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { LoopVideo } from '@/components/ui/LoopVideo';
@@ -9,6 +10,12 @@ import { cn } from '@/lib/utils';
 
 interface AgenciaPageProps {
   params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.pages.agency' });
+  return buildPageMetadata({ locale, href: '/agencia', title: t('title'), description: t('description') });
 }
 
 export default async function AgenciaPage({ params }: AgenciaPageProps) {

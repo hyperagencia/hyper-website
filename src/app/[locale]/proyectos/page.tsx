@@ -1,6 +1,13 @@
 import { getTranslations } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 import { ProjectsFilterGrid } from '@/components/projects/ProjectsFilterGrid';
 import { getSortedProjects } from '@/data/projects';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.pages.projects' });
+  return buildPageMetadata({ locale, href: '/proyectos', title: t('title'), description: t('description') });
+}
 
 export default async function ProyectosPage() {
   const t = await getTranslations('pages.projects');
