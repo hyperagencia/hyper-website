@@ -6,6 +6,9 @@ import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectGalleryBlock } from '@/components/projects/ProjectGalleryBlock';
 import { PROJECTS, getProjectBySlug, getRelatedProjects } from '@/data/projects';
 import { getClient } from '@/data/clients';
+import { getCldImageUrl } from 'next-cloudinary';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { SITE_URL, absoluteUrl, buildPageMetadata, type Locale } from '@/lib/seo';
 
 interface ProjectDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -13,6 +16,39 @@ interface ProjectDetailPageProps {
 
 export function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.slug }));
+}
+
+function truncate(text: string, max = 155) {
+  if (text.length <= max) return text;
+  return `${text.slice(0, max - 1).replace(/\s+\S*$/, '')}…`;
+}
+
+function projectSeo(slug: string, locale: 'es' | 'en') {
+  const project = getProjectBySlug(slug);
+  if (!project) return null;
+  const client = getClient(project.clientId);
+  const clientName = client?.name ?? project.slug;
+  const services = project.services.slice(0, 2).map((s) => s[locale]).join(' & ');
+  const title = `${clientName} — ${services} | Hyper`;
+  const description = truncate(project.description[0][locale]);
+  const coverId = project.cover.image ?? project.cover.hover;
+  const image = coverId
+    ? getCldImageUrl({ src: coverId, width: 1200, height: 630, crop: 'fill', gravity: 'auto', format: 'jpg' })
+    : undefined;
+  return { project, clientName, title, description, image };
+}
+
+export async function generateMetadata({ params }: ProjectDetailPageProps) {
+  const { locale, slug } = await params;
+  const seo = projectSeo(slug, locale as 'es' | 'en');
+  if (!seo) return {};
+  return buildPageMetadata({
+    locale,
+    href: { pathname: '/proyectos/[slug]', params: { slug } },
+    title: seo.title,
+    description: seo.description,
+    image: seo.image,
+  });
 }
 
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
@@ -27,8 +63,38 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   const relatedProjects = getRelatedProjects(slug, 3);
   const client = getClient(project.clientId);
 
+  const seo = projectSeo(slug, localeKey)!;
+  const projectUrl = absoluteUrl({ pathname: '/proyectos/[slug]', params: { slug } }, locale as Locale);
+  const tNav = await getTranslations('common.navigation');
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CreativeWork',
+        '@id': `${projectUrl}#project`,
+        name: seo.title,
+        headline: project.title[localeKey],
+        description: seo.description,
+        url: projectUrl,
+        inLanguage: locale,
+        ...(seo.image && { image: seo.image }),
+        creator: { '@id': `${SITE_URL}/#organization` },
+        about: seo.clientName,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: tNav('inicio'), item: absoluteUrl('/', locale as Locale) },
+          { '@type': 'ListItem', position: 2, name: tNav('proyectos'), item: absoluteUrl('/proyectos', locale as Locale) },
+          { '@type': 'ListItem', position: 3, name: seo.clientName, item: projectUrl },
+        ],
+      },
+    ],
+  };
+
   return (
     <section data-header-theme="light" className="bg-white px-6 lg:px-8">
+      <JsonLd data={jsonLd} />
       {/* Close button */}
       <Link
         href="/proyectos"
@@ -89,6 +155,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 key={i}
                 block={block}
                 locale={locale}
+                alt={`${seo.clientName} — ${project.title[localeKey]}`}
                 gradientFrom={project.gradientFrom}
                 gradientTo={project.gradientTo}
               />

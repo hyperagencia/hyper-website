@@ -5,11 +5,13 @@ import type { GalleryBlock } from '@/data/projects';
 interface ProjectGalleryBlockProps {
   block: GalleryBlock;
   locale: string;
+  /** alt de las imágenes, p. ej. "Probel — Una identidad renovada" */
+  alt: string;
   gradientFrom: string;
   gradientTo: string;
 }
 
-export function ProjectGalleryBlock({ block, locale, gradientFrom, gradientTo }: ProjectGalleryBlockProps) {
+export function ProjectGalleryBlock({ block, locale, alt, gradientFrom, gradientTo }: ProjectGalleryBlockProps) {
   const spanClass = block.span === 'full' ? 'md:col-span-2' : '';
 
   if (block.type === 'text') {
@@ -34,7 +36,7 @@ export function ProjectGalleryBlock({ block, locale, gradientFrom, gradientTo }:
       ) : block.type === 'image' && block.publicId ? (
         <CloudinaryImage
           publicId={block.publicId}
-          alt=""
+          alt={alt}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover"

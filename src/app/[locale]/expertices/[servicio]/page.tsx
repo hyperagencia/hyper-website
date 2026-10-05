@@ -8,6 +8,8 @@ import { ArrowList } from '@/components/services/ArrowList';
 import { ProcessSteps } from '@/components/services/ProcessSteps';
 import { getPillarBySlug } from '@/data/services';
 import { getServiceDetailBySlug, SERVICE_DETAILS } from '@/data/services/detail';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { SITE_URL, absoluteUrl, buildPageMetadata, type Locale } from '@/lib/seo';
 
 interface ServiceDetailPageProps {
   params: Promise<{ locale: string; servicio: string }>;
@@ -23,10 +25,12 @@ export async function generateMetadata({ params }: ServiceDetailPageProps) {
   if (!service) return {};
 
   const localeKey = locale as 'es' | 'en';
-  return {
+  return buildPageMetadata({
+    locale,
+    href: { pathname: '/expertices/[servicio]', params: { servicio } },
     title: service.seo.title[localeKey],
     description: service.seo.description[localeKey],
-  };
+  });
 }
 
 export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
@@ -45,8 +49,36 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
     description: step.description[localeKey],
   }));
 
+  const tNav = await getTranslations('common.navigation');
+  const serviceUrl = absoluteUrl({ pathname: '/expertices/[servicio]', params: { servicio } }, locale as Locale);
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': `${serviceUrl}#service`,
+        name: service.hero.title[localeKey],
+        description: service.seo.description[localeKey],
+        serviceType: pillar.title[localeKey],
+        url: serviceUrl,
+        inLanguage: locale,
+        provider: { '@id': `${SITE_URL}/#organization` },
+        areaServed: ['CL', 'Latin America'],
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: tNav('inicio'), item: absoluteUrl('/', locale as Locale) },
+          { '@type': 'ListItem', position: 2, name: tNav('expertices'), item: absoluteUrl('/expertices', locale as Locale) },
+          { '@type': 'ListItem', position: 3, name: service.hero.title[localeKey], item: serviceUrl },
+        ],
+      },
+    ],
+  };
+
   return (
     <div data-header-theme="light" className="bg-white">
+      <JsonLd data={jsonLd} />
       <ServiceHero
         pillarLabel={pillar.title[localeKey]}
         pillarAccent={pillar.accent}
