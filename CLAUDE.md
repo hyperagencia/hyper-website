@@ -263,6 +263,21 @@ Flujo completo `ContactForm.tsx` → `POST /api/contact` → Supabase + Resend:
 
 ---
 
+## SEO
+
+Base técnica lista (MVP). Todo cuelga de `NEXT_PUBLIC_SITE_URL` — **en Vercel debe ser `https://hyperagencia.com`**, si no canonical/sitemap/OG salen con localhost.
+
+- **`src/lib/seo.ts`** — `buildPageMetadata({ locale, href, title, description, image?, noindex? })`: canonical, hreflang (`es`, `en`, `x-default`), OpenGraph y Twitter. `absoluteUrl(href, locale)` resuelve slugs traducidos con `getPathname`. Toda página nueva debe exportar `generateMetadata` usando este helper.
+- **Textos** de title/description por página: `messages/*.json` → `metadata.pages.*`. Servicios usan `seo` en `src/data/services/detail/*.ts`; proyectos lo derivan de `PROJECTS` (`"{Cliente} — {servicios} | Hyper"`, OG image = cover Cloudinary 1200×630).
+- **`src/app/sitemap.ts`** y **`robots.ts`**: sitemap con alternates ES/EN (estáticas + servicios + proyectos; sin `/blog`). `/api/` bloqueado, crawlers de IA permitidos.
+- **JSON-LD** (`components/seo/JsonLd.tsx`): `ProfessionalService` + `WebSite` en el layout (sin teléfono público), `Service` + `BreadcrumbList` en servicios, `CreativeWork` + `BreadcrumbList` en proyectos.
+- **H1 del Home** = label inferior del hero ("Agencia de Branding y Tecnología en Santiago, Chile"); "Future of brands" es un `<p>` visual.
+- **`/blog`** está `noindex` mientras sea "Próximamente" — quitar `noindex` y agregarlo al sitemap al publicar contenido.
+- **Redirects 301 desde WordPress**: `next.config.ts` (`wordpressRedirects`), basados en el sitemap real de WP (`/servicios/*`, `/cultura`, `/en/about`, `/en/work`, `/portfolio/*`, `/project-type/*`, posts, páginas de prueba). Next responde 308 (equivalente a 301 para Google).
+- Pendiente SEO (post-MVP): FAQ/HowTo (solo con contenido real), blog con artículos AEO, página de minería, testimonios, equipo con nombres, Google Business Profile, Search Console + sitemap.
+
+---
+
 ## Páginas Legales
 
 `/privacidad` y `/terminos` comparten `LegalPageLayout.tsx` (`src/components/legal/`). El contenido vive tipado en `src/data/legal/` (`privacy-policy.ts`, `terms-and-conditions.ts`, `types.ts`, `index.ts`) — no hardcodear texto legal en los componentes de página.
@@ -331,7 +346,7 @@ Uso estándar para secciones con scroll trigger:
 - Blog (`/blog` y `/blog/[slug]` son stubs — `return null`)
 - Página `/trabaja` (reservada en el routing, sin implementar)
 - Newsletter (integración con servicio de email marketing) — el CTA existe en el footer pero sin backend
-- SEO: metadata dinámica, OG tags, sitemap.xml, robots.txt
+- Subir `sitemap.xml` a Search Console tras el deploy (la base SEO técnica ya está, ver sección SEO)
 - Deploy en Vercel + dominio hyperagencia.com
 - Analytics (Google Analytics / Plausible)
 - Página 404 con diseño completo
