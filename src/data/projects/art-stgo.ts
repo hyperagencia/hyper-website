@@ -2,32 +2,36 @@ import type { Project } from './types';
 
 export const artStgo: Project = {
   slug: 'art-stgo',
-  categories: ['web', 'ecommerce', 'nextjs', 'headless'],
-  industry: 'Entretenimiento',
+  clientId: 'art-stgo',
+  categories: ['branding', 'app', 'ui-ux', 'web'],
   featured: true,
-  layout: 'half',
+  priority: 4,
   gradientFrom: '#1a3460',
   gradientTo: '#0d2040',
-  cover: {},
-  title: { es: 'Art Stgo', en: 'Art Stgo' },
+  cover: {
+    image: 'art-stgo-cover_gauje7',
+    hover: 'art-stgo-hover_czkfmr',
+  },
+  title: { es: 'Una feria pensada para artistas', en: 'A fair built for artists' },
   description: [
     {
-      es: 'Art Stgo es una feria de arte contemporáneo que buscaba una plataforma e-commerce para vender obras online durante todo el año, no solo durante los días del evento presencial.',
-      en: 'Art Stgo is a contemporary art fair that needed an e-commerce platform to sell artwork online year-round, not only during the physical event days.',
+      es: 'Art Stgo es una feria de arte contemporáneo que reúne artistas independientes y buscaba una marca y una plataforma digital pensadas para ellos: simples de usar, claras para el público y capaces de sostener la feria durante todo el año, no solo los días del evento.',
+      en: 'Art Stgo is a contemporary art fair that brings together independent artists, and needed a brand and a digital platform built for them: simple to use, clear for visitors, and able to sustain the fair year-round, not just on event days.',
     },
     {
-      es: 'Construimos una tienda headless sobre Next.js, con un catálogo curado por galerías y un checkout pensado para piezas de alto valor.',
-      en: 'We built a headless store on top of Next.js, with a catalog curated by galleries and a checkout designed for high-value pieces.',
+      es: 'Construimos la identidad visual, una app para que los artistas gestionen sus obras y perfiles, y un sitio web con foco en UI/UX para que el público descubra y explore la feria desde cualquier dispositivo.',
+      en: 'We built the visual identity, an app for artists to manage their pieces and profiles, and a website with a strong UI/UX focus so visitors can discover and explore the fair from any device.',
     },
   ],
   services: [
+    { es: 'Identidad visual', en: 'Visual identity' },
+    { es: 'Diseño de app', en: 'App design' },
+    { es: 'UI & UX Design', en: 'UI & UX Design' },
     { es: 'Diseño web', en: 'Web design' },
-    { es: 'Desarrollo e-commerce', en: 'E-commerce development' },
-    { es: 'Arquitectura headless', en: 'Headless architecture' },
   ],
   gallery: [
-    { type: 'image', aspect: '16:9', span: 'full' },
-    { type: 'image', aspect: '1:1', span: 'half' },
-    { type: 'image', aspect: '1:1', span: 'half' },
+    { type: 'image', publicId: 'art-stgo-cover_gauje7', aspect: '16:9', span: 'full' },
+    { type: 'image', publicId: 'art-stgo-hover_czkfmr', aspect: '1:1', span: 'half' },
+    { type: 'image', publicId: 'art-stgo-logo_ytrrdb', aspect: '1:1', span: 'half' },
   ],
 };

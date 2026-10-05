@@ -25,23 +25,23 @@ export function ProjectsSection() {
       >
         <motion.h2
           variants={fadeInUp}
-          className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight"
+          className="font-display text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight"
         >
           {t('heading')}
         </motion.h2>
       </motion.div>
 
-      {/* Projects grid — half items fill one column, full items span both */}
+      {/* Projects grid — uniform 4:5 cards, 3 columns on desktop */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
         variants={staggerContainer}
-        className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3"
+        className="grid grid-cols-1 gap-x-4 gap-y-10 md:grid-cols-2 lg:grid-cols-3"
       >
         {featuredProjects.map((project) => (
-          <motion.div key={project.slug} variants={scaleIn} className={project.layout === 'full' ? 'md:col-span-2' : ''}>
-            <ProjectCard project={project} locale={locale} allowFullSpan />
+          <motion.div key={project.slug} variants={scaleIn}>
+            <ProjectCard project={project} locale={locale} />
           </motion.div>
         ))}
       </motion.div>

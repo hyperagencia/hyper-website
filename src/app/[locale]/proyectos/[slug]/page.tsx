@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ProjectGalleryBlock } from '@/components/projects/ProjectGalleryBlock';
 import { PROJECTS, getProjectBySlug, getRelatedProjects } from '@/data/projects';
+import { getClient } from '@/data/clients';
 
 interface ProjectDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -21,8 +22,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   const t = await getTranslations('pages.projects.detail');
   const tCategories = await getTranslations('pages.projects.categories');
+  const tIndustries = await getTranslations('pages.projects.industries');
   const localeKey = locale as 'es' | 'en';
   const relatedProjects = getRelatedProjects(slug, 3);
+  const client = getClient(project.clientId);
 
   return (
     <section data-header-theme="light" className="bg-white px-6 lg:px-8">
@@ -38,7 +41,13 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       <div className="flex flex-col gap-10 lg:flex-row lg:gap-8">
         {/* Left column — sticky info */}
         <div className="pt-32 lg:w-[30%] lg:pt-[10%] lg:sticky lg:top-24 lg:self-start">
-          <h1 className="text-4xl md:text-5xl font-medium text-black tracking-tight">{project.title[localeKey]}</h1>
+          {client && (
+            <p className="text-sm font-medium text-black/50">
+              {client.name}
+              {client.industry && <> — {tIndustries(client.industry)}</>}
+            </p>
+          )}
+          <h1 className="mt-2 font-display text-4xl md:text-5xl font-medium text-black tracking-tight">{project.title[localeKey]}</h1>
 
           <div className="mt-6 flex flex-wrap gap-2">
             {project.categories.map((category) => (
@@ -91,10 +100,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       {/* Explore more projects */}
       {relatedProjects.length > 0 && (
         <div className="border-t border-black/10 py-24 md:py-32">
-          <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-10 md:mb-14">
+          <h2 className="font-display text-3xl md:text-4xl font-medium text-black tracking-tight mb-10 md:mb-14">
             {t('explore_more_heading')}
           </h2>
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-3">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-10 md:grid-cols-3">
             {relatedProjects.map((related) => (
               <ProjectCard key={related.slug} project={related} locale={locale} />
             ))}

@@ -30,19 +30,24 @@ export interface GalleryBlock {
 
 export interface Project {
   slug: string;
+  /** References a Client in src/data/clients — logo and industry are resolved from there */
+  clientId: string;
   categories: ProjectCategory[];
-  /** e.g. 'Minería', 'Retail' — data only, no filter UI yet */
-  industry?: string;
   /** shows up in the Home grid */
   featured?: boolean;
-  /** card proportion in the Home grid */
-  layout: 'half' | 'full';
+  /** Menor = aparece antes en Home y /proyectos. 1–9 = insignia, 100 = default. Ver getSortedProjects(). */
+  priority: number;
   gradientFrom: string;
   gradientTo: string;
   cover: {
+    /** Cloudinary publicId, 4:5 */
     image?: string;
+    /** Cloudinary publicId, 4:5 — alternative to image */
     video?: string;
+    /** Cloudinary publicId, 4:5 — shown on hover, desktop only */
+    hover?: string;
   };
+  /** Project title — not the client name (e.g. "Un nuevo posicionamiento") */
   title: LocalizedText;
   description: LocalizedText[];
   services: LocalizedText[];

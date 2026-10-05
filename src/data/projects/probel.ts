@@ -2,16 +2,17 @@ import type { Project } from './types';
 
 export const probel: Project = {
   slug: 'probel',
+  clientId: 'probel',
   categories: ['branding', 'motion', 'web'],
-  industry: 'Retail',
   featured: true,
-  layout: 'full',
+  priority: 3,
   gradientFrom: '#7a0000',
   gradientTo: '#c0392b',
   cover: {
-    image: 'proble_client_lb_kzowyp',
+    video: 'Brand-Identity-Motion_cqsw1q',
+    hover: 'probel-hover_ky8qv2',
   },
-  title: { es: 'Probel', en: 'Probel' },
+  title: { es: 'Una identidad renovada', en: 'A renewed identity' },
   description: [
     {
       es: 'Probel es una marca de distribución retail con más de dos décadas de trayectoria en Chile. Nos buscaron para renovar por completo su identidad visual y llevarla a un lenguaje más contemporáneo, sin perder la confianza que construyeron con sus clientes.',

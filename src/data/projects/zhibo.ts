@@ -2,32 +2,35 @@ import type { Project } from './types';
 
 export const zhibo: Project = {
   slug: 'zhibo',
-  categories: ['branding', 'app', 'mobile', 'react'],
-  industry: 'Entretenimiento',
+  clientId: 'zhibo',
+  categories: ['branding', 'web'],
   featured: true,
-  layout: 'half',
+  priority: 2,
   gradientFrom: '#2a3a1a',
   gradientTo: '#1a2a10',
-  cover: {},
-  title: { es: 'Zhibo', en: 'Zhibo' },
+  cover: {
+    image: 'zhibo-cover_lxbwsr',
+    hover: 'zhibo-hover_ja1f7p',
+  },
+  title: { es: 'Un nuevo posicionamiento', en: 'A new positioning' },
   description: [
     {
-      es: 'Zhibo es una plataforma de streaming enfocada en creadores de contenido latinoamericanos. Diseñamos su identidad de marca y construimos la app móvil que conecta a creadores con sus audiencias en tiempo real.',
-      en: 'Zhibo is a streaming platform focused on Latin American content creators. We designed their brand identity and built the mobile app that connects creators with their audiences in real time.',
+      es: 'Zhibo es un proveedor de equipos y servicios para la industria minera e industrial. Nos buscaron para construir una identidad de marca a la altura de su crecimiento y un sitio web que reflejara la escala de sus operaciones.',
+      en: 'Zhibo is a supplier of equipment and services for the mining and industrial sector. They came to us to build a brand identity that matched their growth and a website that reflected the scale of their operations.',
     },
     {
-      es: 'El desafío principal fue crear un sistema visual vibrante pero flexible, capaz de adaptarse a miles de streams distintos sin perder identidad de marca.',
-      en: 'The main challenge was creating a vibrant yet flexible visual system, able to adapt to thousands of different streams without losing brand identity.',
+      es: 'El desafío fue traducir la solidez de una operación industrial en un sistema visual claro y moderno, sin perder la confianza que ya tenían construida con sus clientes.',
+      en: 'The challenge was to translate the strength of an industrial operation into a clear, modern visual system, without losing the trust already built with their clients.',
     },
   ],
   services: [
-    { es: 'Identidad de marca', en: 'Brand identity' },
-    { es: 'UI & UX Design', en: 'UI & UX Design' },
-    { es: 'Desarrollo de app móvil', en: 'Mobile app development' },
+    { es: 'Estrategia de marca', en: 'Brand strategy' },
+    { es: 'Identidad visual', en: 'Visual identity' },
+    { es: 'Diseño web', en: 'Web design' },
   ],
   gallery: [
-    { type: 'image', aspect: '16:9', span: 'full' },
-    { type: 'image', aspect: '1:1', span: 'half' },
+    { type: 'image', publicId: 'zhibo-cover_lxbwsr', aspect: '16:9', span: 'full' },
+    { type: 'image', publicId: 'zhibo-hover_ja1f7p', aspect: '1:1', span: 'half' },
     { type: 'image', aspect: '1:1', span: 'half' },
   ],
 };

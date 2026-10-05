@@ -8,13 +8,14 @@ interface CloudinaryVideoProps {
   className?: string;
   width?: number;
   height?: number;
-  /** Shorthand for width/height when the exact pixel size doesn't matter — '16:9' or '1:1' (default). */
-  aspect?: '1:1' | '16:9';
+  /** Shorthand for width/height when the exact pixel size doesn't matter — '16:9', '4:5' or '1:1' (default). */
+  aspect?: '1:1' | '16:9' | '4:5';
 }
 
-const ASPECT_SIZES: Record<'1:1' | '16:9', { width: number; height: number }> = {
+const ASPECT_SIZES: Record<'1:1' | '16:9' | '4:5', { width: number; height: number }> = {
   '1:1': { width: 1200, height: 1200 },
   '16:9': { width: 1600, height: 900 },
+  '4:5': { width: 1080, height: 1350 },
 };
 
 /**
@@ -28,8 +29,26 @@ export function CloudinaryVideo({ publicId, className, width, height, aspect = '
   const finalWidth = width ?? size.width;
   const finalHeight = height ?? size.height;
 
-  const src = getCldVideoUrl({ src: publicId, width: finalWidth, height: finalHeight, rawTransformations: ['q_auto', 'f_auto'] });
-  const poster = getCldImageUrl({ src: publicId, width: finalWidth, height: finalHeight, format: 'auto', quality: 'auto' });
+  const src = getCldVideoUrl({
+    src: publicId,
+    width: finalWidth,
+    height: finalHeight,
+    crop: 'fill',
+    gravity: 'center',
+    rawTransformations: ['q_auto', 'f_auto'],
+  });
+  // assetType: 'video' — the publicId is a video resource, not an image one. Without it,
+  // Cloudinary looks for the still frame under /image/upload/... and 404s.
+  const poster = getCldImageUrl({
+    src: publicId,
+    assetType: 'video',
+    width: finalWidth,
+    height: finalHeight,
+    crop: 'fill',
+    gravity: 'auto',
+    format: 'auto',
+    quality: 'auto',
+  });
 
   useEffect(() => {
     const video = videoRef.current;
