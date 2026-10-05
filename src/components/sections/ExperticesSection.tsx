@@ -21,7 +21,7 @@ export function ExperticesSection() {
       >
         <motion.h2
           variants={fadeInUp}
-          className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight"
+          className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight"
         >
           {t('heading')}
         </motion.h2>
@@ -44,7 +44,7 @@ export function ExperticesSection() {
             <span className="text-[#f1e066] text-xs uppercase tracking-[0.2em] font-medium">
               01
             </span>
-            <h3 className="text-white text-4xl md:text-5xl font-bold mt-5 tracking-tight">
+            <h3 className="font-display text-white text-4xl md:text-5xl font-bold mt-5 tracking-tight">
               {t('branding_title')}
             </h3>
             <p className="text-white/50 text-lg mt-6 leading-relaxed max-w-sm">
@@ -73,7 +73,7 @@ export function ExperticesSection() {
             <span className="text-black/40 text-xs uppercase tracking-[0.2em] font-medium">
               02
             </span>
-            <h3 className="text-black text-4xl md:text-5xl font-bold mt-5 tracking-tight">
+            <h3 className="font-display text-black text-4xl md:text-5xl font-bold mt-5 tracking-tight">
               {t('tecnologia_title')}
             </h3>
             <p className="text-black/60 text-lg mt-6 leading-relaxed max-w-sm">

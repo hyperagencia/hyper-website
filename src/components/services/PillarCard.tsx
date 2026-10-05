@@ -36,7 +36,7 @@ export function PillarCard({ pillar }: PillarCardProps) {
   return (
     <div className={`rounded-3xl p-10 md:p-14 flex flex-col justify-between min-h-[420px] transition-colors duration-300 ${classes.card}`}>
       <div>
-        <h3 className={`text-4xl md:text-5xl font-medium tracking-tight ${classes.title}`}>{pillar.title[locale]}</h3>
+        <h3 className={`font-display text-4xl md:text-5xl font-medium tracking-tight ${classes.title}`}>{pillar.title[locale]}</h3>
         <p className={`text-lg mt-6 leading-relaxed max-w-sm ${classes.description}`}>{pillar.description[locale]}</p>
       </div>
 

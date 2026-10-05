@@ -1,16 +1,3 @@
-export const CLIENT_NAMES: string[] = [
-  'Antofagasta Minerals',
-  'Entel',
-  'Cencosud',
-  'Falabella',
-  'Codelco',
-  'Latam Airlines',
-  'BancoEstado',
-  'Sodimac',
-  'Ripley',
-  'VTR',
-];
-
 export interface Expertice {
   id: 'branding' | 'tecnologia';
   titleKey: string;

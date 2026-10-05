@@ -21,7 +21,7 @@ export function ProcessSteps({ heading, steps }: ProcessStepsProps) {
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
         variants={fadeInUp}
-        className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-12 md:mb-16"
+        className="font-display text-3xl md:text-4xl font-medium text-black tracking-tight mb-12 md:mb-16"
       >
         {heading}
       </motion.h2>

@@ -20,7 +20,7 @@ export default async function ExperticesPage() {
       <section className="relative min-h-[70vh] flex flex-col pt-20">
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 px-6 lg:px-8 pt-16 lg:pt-24 pb-16">
           <div className="flex flex-col justify-center">
-            <h1 className="font-medium leading-none tracking-tighter text-black select-none text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem]">
+            <h1 className="font-display font-medium leading-none tracking-tighter text-black select-none text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6.5rem]">
               {t('hero.title')}
             </h1>
           </div>
@@ -45,7 +45,7 @@ export default async function ExperticesPage() {
 
       {/* Closing CTA */}
       <section className="px-6 lg:px-8 py-24 md:py-32 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black tracking-tight max-w-2xl mx-auto">
+        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-medium text-black tracking-tight max-w-2xl mx-auto">
           {t('closing.heading')}
         </h2>
         <div className="mt-8">

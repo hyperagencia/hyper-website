@@ -3,17 +3,18 @@
 import { motion } from 'framer-motion';
 import { CloudinaryImage } from '@/components/ui/CloudinaryImage';
 import { fadeInUp, slideInLeft, slideInRight } from '@/lib/animations';
-import type { Pillar } from '@/data/services';
+
+export type ValueBlockAccent = 'yellow' | 'dark' | 'light';
 
 interface ValueBlockRowProps {
   title: string;
   description: string;
   image?: string;
   index: number;
-  pillarAccent: Pillar['accent'];
+  pillarAccent: ValueBlockAccent;
 }
 
-const PLACEHOLDER_GRADIENTS: Record<Pillar['accent'], string> = {
+const PLACEHOLDER_GRADIENTS: Record<ValueBlockAccent, string> = {
   yellow: 'linear-gradient(135deg, #f1e066 0%, #d9c74d 100%)',
   dark: 'linear-gradient(135deg, #111111 0%, #2a2a2a 100%)',
   light: 'linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%)',
@@ -47,7 +48,7 @@ export function ValueBlockRow({ title, description, image, index, pillarAccent }
       variants={fadeInUp}
       className="flex flex-col justify-center"
     >
-      <h3 className="text-3xl md:text-4xl font-medium text-black tracking-tight">{title}</h3>
+      <h3 className="font-display text-3xl md:text-4xl font-medium text-black tracking-tight">{title}</h3>
       <p className="text-base md:text-lg text-black/60 leading-relaxed mt-4">{description}</p>
     </motion.div>
   );

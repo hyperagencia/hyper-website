@@ -80,7 +80,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
       {/* Closing CTA */}
       <section className="px-6 lg:px-8 py-24 md:py-32 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black tracking-tight max-w-2xl mx-auto">
+        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-medium text-black tracking-tight max-w-2xl mx-auto">
           {service.cta.heading[localeKey]}
         </h2>
         <p className="text-black/60 max-w-xl mx-auto mt-4">{service.cta.description[localeKey]}</p>

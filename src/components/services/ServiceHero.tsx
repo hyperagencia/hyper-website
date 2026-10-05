@@ -41,7 +41,7 @@ export function ServiceHero({ pillarLabel, pillarAccent, title, subtitle, coverI
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
-        className="font-medium leading-[1.05] tracking-tighter text-black mt-6 text-[2.5rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[5rem] max-w-4xl"
+        className="font-display font-medium leading-[1.05] tracking-tighter text-black mt-6 text-[2.5rem] sm:text-[3.25rem] md:text-[4.25rem] lg:text-[5rem] max-w-4xl"
       >
         {title}
       </motion.h1>
@@ -65,7 +65,7 @@ export function ServiceHero({ pillarLabel, pillarAccent, title, subtitle, coverI
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
         variants={fadeInUp}
-        className="text-3xl md:text-4xl lg:text-5xl font-medium text-black tracking-tight leading-snug w-full md:w-4/5 mt-14"
+        className="font-display text-3xl md:text-4xl lg:text-5xl font-medium text-black tracking-tight leading-snug w-full md:w-4/5 mt-14"
       >
         {subtitle}
       </motion.p>
