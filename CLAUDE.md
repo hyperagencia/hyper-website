@@ -28,11 +28,15 @@ Re-diseño completo de la web de **Hyper** (hyperagencia.com), agencia de brandi
 | TypeScript | ^5 | Tipado |
 | Tailwind CSS | ^3.4 | Estilos |
 | Framer Motion | ^12 | Animaciones de UI |
-| GSAP | ^3.13 | Animaciones avanzadas/scroll |
-| Lenis | ^1.3 | Smooth scroll |
-| Three.js + R3F | ^0.180 | Elementos 3D (si aplica) |
 | next-intl | ^4.3 | Internacionalización (ES/EN) |
 | Lucide React | ^0.542 | Iconos |
+| next-cloudinary | ^6.17 | Imágenes/video de proyectos y clientes servidos desde Cloudinary |
+| @supabase/supabase-js | ^2.112 | Cliente admin para persistir leads del formulario de contacto |
+| resend | ^6.22 | Envío del email de notificación cuando llega un lead |
+| zod | ^4.4 | Validación de formularios (compartida entre cliente y API route) |
+| clsx | ^2.1 | Utilidad para clases condicionales |
+
+> **Nota:** GSAP, Lenis y Three.js/R3F aparecían en versiones anteriores de esta guía pero no están instalados ni se usan en el código actual. Si se retoman (smooth scroll, elementos 3D), agregarlos aquí junto con su primer uso real.
 
 ---
 
@@ -52,10 +56,13 @@ black         #000000   → Tipografía principal
 
 ### Tipografía
 
-- **Familia:** Inter (300 — 900)
-- **Headlines editoriales:** `font-medium` (500) + `tracking-tighter`
+- **Familia:** Neue Haas Grotesk, servida vía Adobe Fonts (Typekit, kit `mtg6fon`) — reemplazó a Inter. Dos variantes registradas en `tailwind.config.js`:
+  - `font-sans` → `neue-haas-grotesk-text` (cuerpo de texto)
+  - `font-display` → `neue-haas-grotesk-display` (headlines, títulos de sección, números)
+- El `<link rel="stylesheet" href="https://use.typekit.net/mtg6fon.css">` + preconnects a `use.typekit.net` / `p.typekit.net` están en `src/app/[locale]/layout.tsx`
+- **Headlines editoriales:** `font-display font-medium` (500) + `tracking-tighter`
 - **Tamaños hero:** Escalado responsive desde `4rem` → `10rem`
-- **Nota:** Se evita `font-black` (900) — los títulos usan 500 para un look más refinado
+- **Nota:** Se evita el peso 900 — los títulos usan 500 para un look más refinado
 
 ### Principios visuales
 
@@ -75,39 +82,61 @@ black         #000000   → Tipografía principal
 src/
 ├── app/
 │   ├── [locale]/          ← Todas las páginas van aquí
-│   │   ├── layout.tsx     ← Header + Footer globales
+│   │   ├── layout.tsx     ← Header + Footer globales + fuente Adobe (Typekit)
 │   │   ├── page.tsx       ← Home
-│   │   ├── agencia/       ← Sobre la agencia
-│   │   ├── proyectos/     ← Lista + detalle de proyectos
-│   │   ├── expertices/    ← Servicios + detalle de servicio
-│   │   ├── blog/          ← Blog + artículo
-│   │   ├── contacto/      ← Formulario de contacto
+│   │   ├── agencia/       ← Sobre la agencia ✅ construida
+│   │   ├── proyectos/     ← Lista + detalle de proyectos ✅ construida
+│   │   ├── expertices/    ← Servicios + detalle de servicio ✅ construida
+│   │   ├── blog/          ← Blog + artículo — 🔴 stub (`return null`)
+│   │   ├── contacto/      ← Formulario de contacto ✅ construida y funcional
+│   │   ├── privacidad/    ← Política de privacidad ✅
+│   │   ├── terminos/      ← Términos y condiciones ✅
 │   │   └── not-found.tsx
+│   ├── api/
+│   │   └── contact/route.ts  ← Recibe el form, valida, guarda en Supabase, notifica por Resend
 │   └── globals.css
 ├── components/
 │   ├── layout/
 │   │   ├── GlassmorphismHeader.tsx  ← Header principal (pill nav + logo SVG)
-│   │   └── footer.tsx               ← Footer con watermark HYPER
+│   │   ├── footer.tsx               ← Footer con watermark HYPER
+│   │   └── ProgressiveBlur.tsx      ← Blur progresivo (overlay decorativo)
 │   ├── sections/          ← Secciones de la home y otras páginas
-│   └── ui/                ← Componentes atómicos (Button, Card, Modal)
-├── i18n/                  ← Configuración next-intl
+│   ├── contact/           ← ContactForm.tsx + RotatingGreeting.tsx
+│   ├── legal/             ← LegalPageLayout.tsx (usado por /privacidad y /terminos)
+│   ├── projects/          ← ProjectCard.tsx, ProjectsFilterGrid.tsx
+│   ├── services/          ← PillarCard.tsx, ProcessSteps.tsx, ServiceHero.tsx, ValueBlockRow.tsx
+│   └── ui/                ← Componentes atómicos: Button, CloudinaryImage, CloudinaryVideo,
+│                              AnimatedLink, checkbox, field, input, select, textarea, modal
+├── i18n/                  ← Configuración next-intl (routing.ts define slugs traducidos por locale)
 ├── lib/
 │   ├── animations.ts      ← Variantes Framer Motion reutilizables
-│   ├── constants.ts       ← Datos estáticos (proyectos, clientes)
+│   ├── constants.ts       ← Datos estáticos (expertices/pillars)
+│   ├── contact-schema.ts  ← Schema Zod del form (compartido entre ContactForm y api/contact)
+│   ├── contact-options.ts ← Opciones de servicio del select del form
+│   ├── contact-email.ts   ← Arma el HTML del email de notificación (Resend)
+│   ├── countries.ts       ← Lista de países para el select del form
+│   ├── supabase.ts        ← Cliente admin de Supabase (server-only, usa SUPABASE_SECRET_KEY)
 │   └── utils.ts
+├── data/
+│   ├── projects/          ← Un archivo por proyecto + types.ts + index.ts (PROJECTS)
+│   ├── clients/           ← Registro de clientes (logo Cloudinary, industria) — index.ts (CLIENTS)
+│   ├── legal/             ← privacy-policy.ts, terms-and-conditions.ts, types.ts, index.ts
+│   └── agencia.ts         ← AGENCY_VALUES, AGENCY_WORK_BLOCKS, AGENCY_STATS para /agencia
 └── middleware.ts           ← Routing i18n
 messages/
 ├── es.json
 └── en.json
+supabase/
+└── migrations/
+    └── 0001_contact_submissions.sql  ← Tabla contact_submissions (leads del form)
 public/
-└── assets/                ← Todos los archivos estáticos del sitio
+└── assets/                ← Assets estáticos que no viven en Cloudinary
     ├── README.md          ← Guía de specs y nombres de archivos esperados
     ├── logo/              ← hyper-logo-dark.svg ✅ | hyper-logo-light.svg ✅
-    ├── video/             ← hero.webm ✅
-    ├── projects/          ← Covers de proyectos (pendiente)
-    ├── clients/           ← Logos SVG de clientes (pendiente)
-    └── team/              ← Fotos del equipo (pendiente)
+    └── video/             ← hero.webm ✅
 ```
+
+> Covers de proyectos y logos de clientes ya no van en `public/assets/` — se sirven desde Cloudinary (ver sección Assets).
 
 ---
 
@@ -120,33 +149,40 @@ Secciones en orden:
 1. **HeroSection** — Headline editorial "Future of / brands" en `font-medium` (500). Fondo blanco. Sin botón CTA — solo headline + subtítulo a la derecha.
 2. **VideoHeroSection** — Video en loop automático (`hero.webm`). `aspect-[4/5]` en mobile, `aspect-video` en desktop. IntersectionObserver para play/pause en scroll.
 3. **AboutSection** — Fondo `#e8e8e8`. Párrafo manifesto + CTA "Ver servicios" → `/expertices`.
-4. **ProjectsSection** — 6 proyectos. Mobile: todos en columna única cuadrada. Desktop: grid `half` (cuadrado) / `full` (span 2, proporción 5:2). Placeholders de gradiente → pendiente imágenes reales.
+4. **ProjectsSection** — proyectos destacados (`featured: true`). Grid uniforme de cards 4:5: 1 columna en mobile, 2 en tablet, 3 en desktop. Ver `ProjectCard` en Componentes Clave.
 5. **ClientsMarquee** — CSS marquee. Heading: "Hemos hecho un gran equipo juntos". Logos de clientes en texto por ahora.
 6. **ExperticesSection** — Fondo negro. 2 cards: Branding (oscuro + acento amarillo) / Tecnología (fondo amarillo).
 
-### Proyectos en `constants.ts`
+### Proyectos en `src/data/projects/`
 
-| ID | Layout | Estado imagen |
-|---|---|---|
-| long-king | half (cuadrado) | Gradiente placeholder |
-| kurrupt | half (cuadrado) | Gradiente placeholder |
-| zhapn | full (5:2 panorámica) | Gradiente placeholder |
-| audi | half (cuadrado) | Gradiente placeholder |
-| amava | half (cuadrado) | Gradiente placeholder |
-| twilio | full (5:2 panorámica) | Gradiente placeholder |
+Un archivo por proyecto, registrados en `index.ts` → `PROJECTS`. Cada `Project` referencia un `clientId` (ver `src/data/clients/`) y no repite el logo ni la industria del cliente.
+
+**Orden interno:** cada proyecto tiene `priority: number` (menor = aparece antes en Home y `/proyectos`). Convención: 1–9 para insignias, 100 = default. `getSortedProjects()` en `index.ts` es la fuente de verdad del orden — `getFeaturedProjects()`, `getRelatedProjects()` y la página `/proyectos` lo consumen; nunca reordenar manualmente el array `PROJECTS` para cambiar el orden visible, cambiar el número `priority` en el archivo del proyecto.
+
+| Slug | Cliente | Industria | Servicios | Priority | Cover |
+|---|---|---|---|---|---|
+| lonkingmaq | Lonking Maq | Minería & Industrial | Branding, Web | 1 | ✅ imagen + hover |
+| zhibo | Zhibo | Minería & Industrial | Branding, Web | 2 | ✅ imagen + hover |
+| probel | Probel | Belleza | Branding, Motion, Web | 3 | ✅ video (loop) + hover |
+| art-stgo | Art Stgo | Cultura | Branding, App, UI/UX, Web | 4 | ✅ imagen + hover |
+| general-focus | General Focus | Salud | Branding, Web | 5 | ✅ imagen + hover |
+| liozar | Liozar | Moda | Branding | 100 (no featured) | ✅ imagen + hover |
 
 ### Páginas internas (todas con soporte ES/EN)
 
-| Ruta | Estado | Descripción |
-|---|---|---|
-| `/agencia` | Stub vacío | Historia, equipo, valores, manifesto |
-| `/proyectos` | Stub vacío | Grilla filtrable de todos los proyectos |
-| `/proyectos/[slug]` | Stub vacío | Case study de cada proyecto |
-| `/expertices` | Stub vacío | Overview de servicios |
-| `/expertices/[servicio]` | Stub vacío | Detalle de branding / tecnología |
-| `/blog` | Stub vacío | Listado de artículos |
-| `/blog/[slug]` | Stub vacío | Artículo individual |
-| `/contacto` | Stub vacío | Formulario de contacto + info |
+| Ruta (es) | Ruta (en) | Estado | Descripción |
+|---|---|---|---|
+| `/agencia` | `/agency` | ✅ Construida | Hero, misión, valores, stats, "cómo trabajamos", marquee de clientes, CTA |
+| `/proyectos` | `/projects` | ✅ Construida | Grilla filtrable (`ProjectsFilterGrid`) de todos los proyectos |
+| `/proyectos/[slug]` | `/projects/[slug]` | ✅ Construida | Case study de cada proyecto |
+| `/expertices` | `/expertises` | ✅ Construida | Overview de servicios + `ProcessSteps` |
+| `/expertices/[servicio]` | `/expertises/[servicio]` | ✅ Construida | Detalle de branding / tecnología |
+| `/contacto` | `/contact` | ✅ Construida y funcional | Formulario de contacto con backend (Supabase + Resend) |
+| `/privacidad` | `/privacidad` | ✅ Construida | Política de privacidad (`LegalPageLayout`) |
+| `/terminos` | `/terminos` | ✅ Construida | Términos y condiciones (`LegalPageLayout`) |
+| `/blog` | `/blog` | 🔴 Stub vacío (`return null`) | Listado de artículos |
+| `/blog/[slug]` | `/blog/[slug]` | 🔴 Stub vacío (`return null`) | Artículo individual |
+| `/trabaja` | `/trabaja` | 🔴 No existe todavía | Reservada en `i18n/routing.ts` (pathnames) pero sin carpeta ni page.tsx |
 
 ---
 
@@ -157,8 +193,9 @@ Secciones en orden:
 - **Archivos:** `messages/es.json` y `messages/en.json`
 - **Rutas:** `hyperagencia.com/es/...` y `hyperagencia.com/en/...`
 - El locale switcher está en el header (ícono globo → dropdown `ES — Español` / `EN — English`, sin banderas)
+- **Slugs traducidos:** `src/i18n/routing.ts` define `pathnames` por ruta — el código siempre usa el path en español (`Link href="/proyectos"`, `href="/agencia"`) y next-intl resuelve la URL real según el locale (`/en/projects`, `/en/agency`, `/en/expertises`, etc). No hardcodear las rutas en inglés en los componentes.
 
-**Regla:** Todo texto visible al usuario debe estar en ambos archivos `messages/`. Nunca hardcodear strings en los componentes.
+**Regla:** Todo texto visible al usuario debe estar en ambos archivos `messages/`. Nunca hardcodear strings en los componentes. Namespaces actuales en `messages/*.json`: `common`, `pages` (`home`, `projects`, `expertices`, `agency`, `blog`, `contact`), `footer`, `metadata`.
 
 ---
 
@@ -189,22 +226,65 @@ Secciones en orden:
 - Archivo actual: `/assets/video/hero.webm`
 - Atributos: `autoPlay loop muted playsInline` + IntersectionObserver (pausa fuera de viewport)
 
+### ProjectCard (`src/components/projects/ProjectCard.tsx`)
+- Card reutilizable (Home, `/proyectos`, relacionados en el detalle). Props: `{ project, locale }`.
+- Contenedor 4:5, `rounded-[15px]`. Cover: imagen o video Cloudinary (fallback: degradado + monograma del cliente si no hay assets).
+- Badge inferior: logo del cliente 1:1 `rounded-[10px]` + nombre + industria (resueltos vía `getClient(project.clientId)` de `src/data/clients`).
+- Hover (solo desktop, `md:group-hover`): el marco se contrae a `scale-[0.97]` mientras la imagen interior sube a `scale-[1.04]`, con crossfade opcional a `project.cover.hover` si existe.
+- El título del proyecto va **debajo** de la card (no en overlay). El servicio/categoría no se muestra en la card — solo en el detalle y como filtro en `/proyectos`.
+
+### CloudinaryImage / CloudinaryVideo (`src/components/ui/`)
+- Wrappers sobre `next-cloudinary` para servir covers de proyectos y logos de clientes por `publicId`.
+- Usados por `ProjectCard`, `ProjectsFilterGrid` y el detalle de proyecto — evitar `next/image` directo con URLs de Cloudinary hardcodeadas.
+
+---
+
+## Formulario de Contacto (backend funcional)
+
+Flujo completo `ContactForm.tsx` → `POST /api/contact` → Supabase + Resend:
+
+1. **Cliente:** `ContactForm.tsx` valida con `contactSchema` (Zod, `src/lib/contact-schema.ts`) — el mismo schema se reusa en la API route para que la validación nunca diverja entre front y back.
+2. **Anti-spam (API route, antes de tocar la DB):**
+   - Honeypot: campo `website` oculto — si un bot lo llena, se responde `200 { ok: true }` sin persistir nada (no delatar la trampa).
+   - Timing: `startedAt` (timestamp de cuando se montó el form) — si la respuesta llega en menos de `MIN_SUBMIT_TIME_MS` (3000ms), se descarta igual con `200 { ok: true }`.
+   - Rate limit: máx. `RATE_LIMIT_MAX_SUBMISSIONS` (3) envíos por IP cada `RATE_LIMIT_WINDOW_MINUTES` (10) minutos, contando contra la propia tabla `contact_submissions` — sin servicio externo.
+3. **Persistencia:** insert en `contact_submissions` (Supabase) vía `supabaseAdmin` (`src/lib/supabase.ts`, server-only, usa `SUPABASE_SECRET_KEY`). El lead queda guardado aunque el email falle.
+4. **Notificación:** email best-effort vía Resend (`src/lib/contact-email.ts` arma el HTML) a `CONTACT_TO_EMAIL`, con `replyTo` = email del lead. Si faltan las env vars de Resend o falla el envío, se loguea pero la request igual responde `ok: true`.
+5. **Tabla:** definida en `supabase/migrations/0001_contact_submissions.sql`.
+
+**Variables de entorno requeridas** (`.env.local`, no versionado):
+
+| Variable | Uso |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_URL` | Assets de proyectos/clientes vía `next-cloudinary` |
+| `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SECRET_KEY` | Proyecto Supabase `hyper-website` (leads del form) |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Notificación por email al recibir un lead |
+
+---
+
+## Páginas Legales
+
+`/privacidad` y `/terminos` comparten `LegalPageLayout.tsx` (`src/components/legal/`). El contenido vive tipado en `src/data/legal/` (`privacy-policy.ts`, `terms-and-conditions.ts`, `types.ts`, `index.ts`) — no hardcodear texto legal en los componentes de página.
+
 ---
 
 ## Assets
 
-Ver `public/assets/README.md` para la guía completa de specs y nombres de archivos.
+Ver `public/assets/README.md` para la guía completa de specs y nombres de archivos que **sí** viven en `public/`.
+
+Los covers de proyectos y logos de clientes se sirven desde **Cloudinary** (no desde `public/assets/`), vía `CloudinaryImage`/`CloudinaryVideo` (`src/components/ui/`) usando el `publicId` guardado en `src/data/projects/*` (`cover.image` / `cover.video` / `cover.hover`) y `src/data/clients/index.ts` (`logo`). Si un proyecto o cliente no tiene `publicId` todavía, `ProjectCard` cae a un degradado con el monograma del cliente.
 
 ### Estado actual de assets
 
-| Asset | Archivo | Estado |
+| Asset | Fuente | Estado |
 |---|---|---|
-| Logo dark | `/assets/logo/hyper-logo-dark.svg` | ✅ Activo |
-| Logo light | `/assets/logo/hyper-logo-light.svg` | ✅ Disponible |
-| Video hero | `/assets/video/hero.webm` | ✅ Activo |
-| Covers proyectos | `/assets/projects/*.jpg` | 🔴 Pendiente |
-| Logos clientes | `/assets/clients/*.svg` | 🔴 Pendiente |
-| Fotos equipo | `/assets/team/*.jpg` | 🔴 Pendiente |
+| Logo dark/light | `/assets/logo/hyper-logo-*.svg` (public/) | ✅ Activo |
+| Video hero | `/assets/video/hero.webm` (public/) | ✅ Activo |
+| Fuente Neue Haas Grotesk | Adobe Fonts / Typekit (`use.typekit.net/mtg6fon.css`) | ✅ Activo |
+| Covers de los 6 proyectos | Cloudinary (`publicId` en `src/data/projects/*.ts`) | ✅ Cargados |
+| Logos de los 6 clientes | Cloudinary (`publicId` en `src/data/clients/index.ts`) | ✅ Cargados |
+| Fotos de equipo | — | 🔴 Pendiente |
 
 ---
 
@@ -228,47 +308,34 @@ Uso estándar para secciones con scroll trigger:
 
 ---
 
-## Estado Actual (Mayo 2026)
+## Estado Actual (Septiembre 2026)
 
 ### Completado ✅
 - Setup Next.js 15 + TypeScript + Tailwind
-- Configuración i18n (next-intl) con rutas ES/EN
-- Sistema de diseño base (colores, tipografía, tokens Tailwind)
+- Configuración i18n (next-intl v4) con rutas ES/EN y slugs traducidos por locale (`i18n/routing.ts`)
+- Sistema de diseño base (colores, tokens Tailwind) + tipografía real: Neue Haas Grotesk vía Adobe Fonts (reemplazó a Inter)
 - Header: logo SVG real, glassmorphism, mobile menu, language switcher sin banderas
 - Footer: watermark HYPER full-width a peso 400, socials, nav
-- Home — todas las secciones funcionales:
-  - Hero editorial (font-medium, sin CTA)
-  - Video hero con `hero.webm` en autoplay loop
-  - About con nuevo manifiesto
-  - Proyectos: 6 cards con layout half/full, mobile en columna única
-  - Clients marquee CSS
-  - Expertices (Branding / Tecnología)
+- Home — todas las secciones funcionales (hero, video hero, about, proyectos, clients marquee, expertices)
+- Todas las páginas internas construidas con contenido real: `/agencia`, `/proyectos`, `/proyectos/[slug]`, `/expertices`, `/expertices/[servicio]`, `/contacto`, `/privacidad`, `/terminos`
+- **Formulario de contacto funcional de punta a punta:** validación Zod compartida, anti-spam (honeypot + timing + rate limit por IP), persistencia en Supabase (`contact_submissions`), notificación por email vía Resend
+- Los 6 proyectos (`lonkingmaq`, `zhibo`, `probel`, `art-stgo`, `general-focus`, `liozar`) y sus 6 clientes con covers/logos reales servidos desde Cloudinary
 - Padding global unificado (`px-6 lg:px-8`) en header, secciones y footer
-- Estructura de assets (`public/assets/`) con subcarpetas y README
 - Animaciones base con Framer Motion
-- Smooth scroll con Lenis
-- Estructura de rutas para todas las páginas (stubs)
 
 ### Pendiente de contenido real 🟡
-- Imágenes de proyectos (actualmente gradientes de color)
-- Logos de clientes en marquee (actualmente texto)
-- Links reales de redes sociales (LinkedIn, Instagram, TikTok)
+- Links reales de redes sociales (LinkedIn, Instagram, TikTok) — siguen como placeholder en el footer
+- Fotos de equipo (para una eventual sección de equipo en `/agencia`)
 
 ### Pendiente de construir 🔴
-- Página `/agencia` (equipo, historia, valores)
-- Página `/proyectos` (grilla filtrable)
-- Páginas de case study `/proyectos/[slug]`
-- Página `/expertices` + detalle por servicio
-- Blog (listado + artículo)
-- Página `/contacto` con formulario funcional
-- Formulario de contacto (backend / email service)
-- Newsletter (integración con servicio de email marketing)
+- Blog (`/blog` y `/blog/[slug]` son stubs — `return null`)
+- Página `/trabaja` (reservada en el routing, sin implementar)
+- Newsletter (integración con servicio de email marketing) — el CTA existe en el footer pero sin backend
 - SEO: metadata dinámica, OG tags, sitemap.xml, robots.txt
-- Optimización de imágenes con `next/image`
-- Fuentes locales (evitar Google Fonts en producción)
 - Deploy en Vercel + dominio hyperagencia.com
 - Analytics (Google Analytics / Plausible)
 - Página 404 con diseño completo
+- Commitear el trabajo en curso: a la fecha de esta actualización hay una cantidad grande de cambios sin commitear (formulario de contacto, páginas legales, datos de clientes/proyectos, tipografía, etc.) — priorizar armar commit(s) antes de seguir sumando features
 
 ---
 
@@ -289,7 +356,7 @@ Uso estándar para secciones con scroll trigger:
 - Hooks: camelCase con prefijo `use-` (`use-smooth-scroll.ts`)
 - Páginas: siempre `page.tsx` dentro de su carpeta de ruta
 - Claves i18n: snake_case (`hero_subtitle`, `title_line1`)
-- IDs de proyectos: kebab-case (`long-king`, `zhapn`)
+- IDs de proyectos: kebab-case (`lonkingmaq`, `art-stgo`)
 - Assets: kebab-case, sin espacios (`hyper-logo-dark.svg`, `hero.webm`)
 
 ---

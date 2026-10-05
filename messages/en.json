@@ -56,7 +56,7 @@
         "cta": "View all projects"
       },
       "clients": {
-        "heading": "We've built great things together"
+        "statement": "For over 10 years, we've worked with extraordinary clients to create meaningful impact and memorable experiences."
       },
       "expertices": {
         "heading": "Our two core specialties",
@@ -68,14 +68,13 @@
       }
     },
     "projects": {
-      "title": "Our projects",
-      "subtitle": "Success cases we're proud of",
+      "title": "Ambitious ideas for ambitious companies",
       "categories": {
         "all": "All",
         "branding": "Branding",
         "motion": "Motion",
         "web": "Web",
-        "ui-ux": "UI & UX Design",
+        "ui-ux": "UIX/UX",
         "app": "App",
         "react": "React",
         "nextjs": "Next.js",
@@ -83,6 +82,21 @@
         "ecommerce": "e-Commerce",
         "custom-development": "Custom Development",
         "mobile": "Mobile"
+      },
+      "industries": {
+        "all": "All",
+        "mining-industrial": "Mining & Industrial",
+        "retail": "Retail",
+        "entertainment": "Entertainment",
+        "culture": "Culture",
+        "fashion": "Fashion",
+        "health": "Health",
+        "beauty": "Beauty"
+      },
+      "filters": {
+        "service": "Service",
+        "industry": "Industry",
+        "empty": "No projects match these filters."
       },
       "detail": {
         "services_heading": "Services",
@@ -125,15 +139,72 @@
     },
     "agency": {
       "title": "About us",
-      "subtitle": "Meet the team behind Hyper"
+      "subtitle": "Branding and technology in one place",
+      "hero": {
+        "badge": "Branding and technology agency",
+        "title": "Bold brands, real growth",
+        "subtitle": "Since 2013 we've helped brands across different industries grow with a clear identity and a digital presence that actually works."
+      },
+      "mission": {
+        "eyebrow": "Who we are",
+        "statement": "We're a branding and technology agency based in Chile. Our team is multidisciplinary: designers, strategists and developers working together to build brands that truly connect with their audiences."
+      },
+      "values": {
+        "eyebrow": "What we believe in",
+        "heading": "Four ideas that guide every project"
+      },
+      "stats": {
+        "statement": "Numbers can say a lot about us, but behind each one there are incredible stories to tell."
+      },
+      "clients": {
+        "statement": "For over 10 years, we've worked with extraordinary clients to create meaningful impact and memorable experiences."
+      },
+      "closing": {
+        "heading": "Let's talk about your brand",
+        "cta": "Let's talk"
+      }
     },
     "blog": {
       "title": "Blog",
+      "coming_soon": "Coming soon",
       "subtitle": "Articles, tutorials and news from the digital world"
     },
     "contact": {
       "title": "Contact",
-      "subtitle": "Have a project in mind? Let's talk"
+      "subtitle": "Have a project in mind? Let's talk",
+      "greeting_accessible_label": "Hello.",
+      "intro": "We speak the language of creativity and would love to talk with you. Get in touch and you'll hear back from us shortly.",
+      "form": {
+        "last_name": "Last name",
+        "job_title": "Job title",
+        "country": "Country",
+        "service": "Service / Reason for contact",
+        "first_name_placeholder": "Enter your name",
+        "last_name_placeholder": "Enter your last name",
+        "company_placeholder": "Company name",
+        "job_title_placeholder": "E.g: General Manager",
+        "country_placeholder": "Select country",
+        "service_placeholder": "Select an option",
+        "message_placeholder": "Describe your project or message",
+        "consent": "I have read and accept the <terms>Terms and Conditions</terms> and <privacy>Privacy Policy</privacy>.",
+        "submit": "Send message",
+        "submitting": "Sending…",
+        "success_title": "Message sent!",
+        "success_body": "Thanks for reaching out. We'll get back to you shortly.",
+        "error_generic": "Something went wrong. Please try again in a few minutes.",
+        "error_rate_limited": "You've sent several messages in a row. Wait a few minutes and try again.",
+        "errors": {
+          "invalid_email": "Invalid email address",
+          "consent_required": "You must accept to continue"
+        }
+      },
+      "world": {
+        "eyebrow": "Operating worldwide",
+        "paragraph": "Everywhere, in any time zone, in any language, we're there. We work as a global team that brings our broad international experience to our work.",
+        "contact_heading": "Contact us",
+        "email_heading": "Email",
+        "email": "contacto@hyperagencia.com"
+      }
     }
   },
   "footer": {
@@ -147,6 +218,7 @@
     "nav_contacto": "Contact",
     "copyright": "© HYPER. 2026",
     "privacy": "Privacy policy",
+    "terms": "Terms and conditions",
     "work_with_us": "Work with us"
   },
   "metadata": {
