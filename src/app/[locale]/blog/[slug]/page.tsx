@@ -1,1 +1,5 @@
-export default function Page() { return null; }
+import { notFound } from 'next/navigation';
+
+export default function BlogPostPage() {
+  notFound();
+}
