@@ -17,14 +17,14 @@ export function HeroSection() {
       >
         {/* Left — editorial headline */}
         <motion.div variants={fadeInUp} className="flex flex-col justify-center">
-          <h1 className="font-display font-medium leading-none tracking-tighter text-black select-none">
+          <p className="font-display font-medium leading-none tracking-tighter text-black select-none">
             <span className="block text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8.5rem] xl:text-[10rem]">
               {t('title_line1')}
             </span>
             <span className="block text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8.5rem] xl:text-[10rem]">
               {t('title_line2')}
             </span>
-          </h1>
+          </p>
         </motion.div>
 
         {/* Right — subtitle only */}
@@ -45,7 +45,7 @@ export function HeroSection() {
         transition={{ delay: 0.8, duration: 0.6 }}
         className="flex justify-between items-end px-6 lg:px-8 pb-8 text-xs text-black/50 tracking-wide"
       >
-        <span>{t('label_agency')}</span>
+        <h1 className="font-normal">{t('label_agency')}</h1>
         <span>{t('label_since')}</span>
       </motion.div>
 
