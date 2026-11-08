@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SITE_URL } from '@/lib/seo';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import GlassmorphismHeader from '@/components/layout/GlassmorphismHeader';
@@ -95,6 +96,9 @@ export default async function LocaleLayout({
           </main>
           <Footer />
         </NextIntlClientProvider>
+        {/* GA4 directo y GTM son excluyentes: si el contenedor GTM ya envía GA4, no definir NEXT_PUBLIC_GA_ID (se duplicarían las visitas) */}
+        {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
+        {process.env.NEXT_PUBLIC_GTM_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />}
       </body>
     </html>
   );

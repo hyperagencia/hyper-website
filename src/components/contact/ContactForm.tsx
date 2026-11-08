@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import { sendGAEvent } from '@next/third-parties/google';
 import { Link } from '@/i18n/navigation';
 import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -88,6 +89,7 @@ export function ContactForm() {
       const data = await res.json().catch(() => ({ ok: false }));
 
       if (res.ok && data.ok) {
+        if (process.env.NEXT_PUBLIC_GA_ID) sendGAEvent('event', 'generate_lead', { form: 'contact', locale });
         setStatus('success');
         return;
       }

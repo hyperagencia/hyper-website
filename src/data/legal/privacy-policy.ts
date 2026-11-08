@@ -80,8 +80,8 @@ export const PRIVACY_POLICY: LegalPage = {
       heading: { es: 'Cookies', en: 'Cookies' },
       body: [
         {
-          es: '<p>El sitio utiliza una cookie técnica (<code>NEXT_LOCALE</code>) que recuerda el idioma que elegiste (español o inglés) para tu próxima visita. No utilizamos cookies de analítica ni de publicidad. Si en el futuro incorporamos herramientas de este tipo, actualizaremos esta política antes de hacerlo.</p>',
-          en: '<p>The site uses one technical cookie (<code>NEXT_LOCALE</code>) that remembers the language you chose (Spanish or English) for your next visit. We do not use analytics or advertising cookies. If we add tools of this kind in the future, we will update this policy beforehand.</p>',
+          es: '<p>El sitio utiliza una cookie técnica (<code>NEXT_LOCALE</code>) que recuerda el idioma que elegiste (español o inglés) para tu próxima visita.</p><p>Además usamos Google Analytics 4 para medir de forma agregada cómo se usa el sitio (páginas visitadas, origen de las visitas y envíos del formulario de contacto). Google Analytics instala cookies propias (como <code>_ga</code>) y trata datos como tu dirección IP anonimizada, tu dispositivo y tu país. Puedes rechazarlas desde la configuración de tu navegador o con el complemento de inhabilitación de Google Analytics. No utilizamos cookies de publicidad.</p>',
+          en: '<p>The site uses one technical cookie (<code>NEXT_LOCALE</code>) that remembers the language you chose (Spanish or English) for your next visit.</p><p>We also use Google Analytics 4 to measure, in aggregate, how the site is used (pages visited, traffic sources and contact form submissions). Google Analytics sets its own cookies (such as <code>_ga</code>) and processes data such as your anonymised IP address, device and country. You can refuse them in your browser settings or with the Google Analytics opt-out add-on. We do not use advertising cookies.</p>',
         },
       ],
     },
