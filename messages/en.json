@@ -259,5 +259,9 @@
       }
     },
     "og_tagline": "Branding & Technology Agency"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "back": "Back to home"
   }
 }
