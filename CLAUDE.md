@@ -91,7 +91,8 @@ src/
 │   │   ├── contacto/      ← Formulario de contacto ✅ construida y funcional
 │   │   ├── privacidad/    ← Política de privacidad ✅
 │   │   ├── terminos/      ← Términos y condiciones ✅
-│   │   └── not-found.tsx
+│   │   ├── [...rest]/page.tsx ← catch-all que dispara notFound()
+│   │   └── not-found.tsx  ← 404 negro con "404" en puntos (DotMatrix404)
 │   ├── api/
 │   │   └── contact/route.ts  ← Recibe el form, valida, guarda en Supabase, notifica por Resend
 │   └── globals.css
@@ -182,7 +183,6 @@ Un archivo por proyecto, registrados en `index.ts` → `PROJECTS`. Cada `Project
 | `/terminos` | `/terminos` | ✅ Construida | Términos y condiciones (`LegalPageLayout`) |
 | `/blog` | `/blog` | 🔴 Stub vacío (`return null`) | Listado de artículos |
 | `/blog/[slug]` | `/blog/[slug]` | 🔴 Stub vacío (`return null`) | Artículo individual |
-| `/trabaja` | `/trabaja` | 🔴 No existe todavía | Reservada en `i18n/routing.ts` (pathnames) pero sin carpeta ni page.tsx |
 
 ---
 
@@ -344,12 +344,10 @@ Uso estándar para secciones con scroll trigger:
 
 ### Pendiente de construir 🔴
 - Blog (`/blog` y `/blog/[slug]` son stubs — `return null`)
-- Página `/trabaja` (reservada en el routing, sin implementar)
-- Newsletter (integración con servicio de email marketing) — el CTA existe en el footer pero sin backend
+- Newsletter: removido del footer (no hay envíos de mail por ahora); retomar con servicio de email marketing
 - Subir `sitemap.xml` a Search Console tras el deploy (la base SEO técnica ya está, ver sección SEO)
 - Deploy en Vercel + dominio hyperagencia.com
-- Analytics (Google Analytics / Plausible)
-- Página 404 con diseño completo
+- Analytics: GA4 instalado en `src/app/[locale]/layout.tsx` (`NEXT_PUBLIC_GA_ID=G-MHWL2C7ZCR`, propiedad `309495282`) y el evento `generate_lead` se envía al éxito de `ContactForm`. GTM (`GTM-PSW5L35Q`) está soportado vía `NEXT_PUBLIC_GTM_ID` pero desactivado: GA4 directo y GTM son excluyentes para no duplicar visitas. **Falta cargar `NEXT_PUBLIC_GA_ID` en Vercel** y marcar `generate_lead` como evento clave en GA4. Hyper no corre Google Ads, así que las conversiones `ads_conversion_*` no se replican. Línea base, brechas de redirects y prioridades P0/P1/P2 para salir en `docs/informe-seo-analytics-2026-10-29.md`. GA4 y Search Console (`sc-domain:hyperagencia.com`) se leen con la Data API / Search Console API usando credenciales ADC fuera del repo (ver sección 7 del informe)
 - Commitear el trabajo en curso: a la fecha de esta actualización hay una cantidad grande de cambios sin commitear (formulario de contacto, páginas legales, datos de clientes/proyectos, tipografía, etc.) — priorizar armar commit(s) antes de seguir sumando features
 
 ---
