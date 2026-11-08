@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Google OAuth client secrets
+client_secret_*.json
+
+# Material fuente de WordPress (PDFs de proyectos)
+wordpress/
