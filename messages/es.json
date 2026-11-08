@@ -208,7 +208,6 @@
     }
   },
   "footer": {
-    "newsletter_cta": "Recibe algo de hype directamente en tu bandeja de entrada.",
     "address_label": "Chile",
     "address_line1": "Av. Pdte. Kennedy 5600",
     "address_line2": "Ofic 507, Vitacura",
@@ -219,7 +218,9 @@
     "copyright": "© HYPER. 2026",
     "privacy": "Políticas de privacidad",
     "terms": "Términos y condiciones",
-    "work_with_us": "Trabaja con nosotros"
+    "address_label_ve": "Venezuela",
+    "address_ve": "Barquisimeto, Venezuela",
+    "coming_soon": "(Próximamente)"
   },
   "metadata": {
     "title": "Hyper — Agencia de Branding y Tecnología",

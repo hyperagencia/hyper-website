@@ -134,8 +134,15 @@ const GlassmorphismHeader = () => {
       <header className="fixed inset-x-0 top-4 z-50">
         {/* Desktop */}
         <div className="mx-auto hidden h-8 w-full max-w-[1920px] items-stretch gap-2 px-4 md:flex lg:px-6">
-          <Link href="/" className="flex shrink-0 items-center rounded-[8px] bg-[#f1e066] px-4">
-            <Image src="/assets/logo/hyper-logo-dark.svg" alt="Hyper" width={287} height={108} priority className="h-3 w-auto" />
+          <Link href="/" className="flex shrink-0 items-center pr-2">
+            <Image
+              src={isLight ? '/assets/logo/hyper-logo-dark.svg' : '/assets/logo/hyper-logo-light.svg'}
+              alt="Hyper"
+              width={287}
+              height={108}
+              priority
+              className="h-8 w-auto"
+            />
           </Link>
 
           <nav className="flex flex-1 items-stretch gap-2">

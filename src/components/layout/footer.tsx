@@ -7,22 +7,24 @@ export function Footer() {
   return (
     <footer className="bg-[#e8e8e8] pt-16 overflow-hidden">
       {/* Main grid */}
-      <div className="px-6 lg:px-8 pb-16 grid grid-cols-1 md:grid-cols-2 gap-16">
-        {/* Left — newsletter CTA */}
-        <div>
-          <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-black leading-tight max-w-sm">
-            {t('newsletter_cta')}
-          </p>
-        </div>
-
-        {/* Right — address + nav */}
-        <div className="flex flex-col sm:flex-row gap-12 md:justify-end">
-          <div>
-            <p className="text-black font-semibold text-sm mb-3">{t('address_label')}</p>
-            <p className="text-black/60 text-sm leading-relaxed">
-              {t('address_line1')},<br />
-              {t('address_line2')}.
-            </p>
+      <div className="px-6 lg:px-8 pb-16">
+        {/* Address + nav */}
+        <div className="flex flex-col sm:flex-row gap-12 sm:justify-between">
+          <div className="flex flex-col sm:flex-row gap-12">
+            <div>
+              <p className="text-black font-semibold text-sm mb-3">{t('address_label')}</p>
+              <p className="text-black/60 text-sm leading-relaxed">
+                {t('address_line1')},<br />
+                {t('address_line2')}.
+              </p>
+            </div>
+            <div>
+              <p className="text-black font-semibold text-sm mb-3">{t('address_label_ve')}</p>
+              <p className="text-black/60 text-sm leading-relaxed">
+                {t('address_ve')}<br />
+                {t('coming_soon')}
+              </p>
+            </div>
           </div>
 
           <nav className="flex flex-col gap-2">
@@ -53,9 +55,6 @@ export function Footer() {
           </AnimatedLink>
           <AnimatedLink href="/terminos" className="text-sm text-black/50 hover:text-black transition-colors">
             {t('terms')}
-          </AnimatedLink>
-          <AnimatedLink href="/trabaja" className="text-sm text-black/50 hover:text-black transition-colors">
-            {t('work_with_us')}
           </AnimatedLink>
         </div>
 

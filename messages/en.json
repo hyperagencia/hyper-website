@@ -208,7 +208,6 @@
     }
   },
   "footer": {
-    "newsletter_cta": "Get some hype directly in your inbox.",
     "address_label": "Chile",
     "address_line1": "Av. Pdte. Kennedy 5600",
     "address_line2": "Office 507, Vitacura",
@@ -219,7 +218,9 @@
     "copyright": "© HYPER. 2026",
     "privacy": "Privacy policy",
     "terms": "Terms and conditions",
-    "work_with_us": "Work with us"
+    "address_label_ve": "Venezuela",
+    "address_ve": "Barquisimeto, Venezuela",
+    "coming_soon": "(Coming soon)"
   },
   "metadata": {
     "title": "Hyper — Branding & Technology Agency",
