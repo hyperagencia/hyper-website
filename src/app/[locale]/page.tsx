@@ -4,6 +4,7 @@ import { HeroSection } from '@/components/sections/hero';
 import { VideoHeroSection } from '@/components/sections/VideoHero';
 import { AboutSection } from '@/components/sections/about';
 import { ProjectsSection } from '@/components/sections/projects';
+import { ExperticesSection } from '@/components/sections/ExperticesSection';
 import { ClientsGrid } from '@/components/sections/ClientsGrid';
 
 
@@ -20,6 +21,7 @@ export default function HomePage() {
       <VideoHeroSection />
       <AboutSection />
       <ProjectsSection />
+      <ExperticesSection />
       <ClientsGrid namespace="pages.home.clients" />
     </>
   );

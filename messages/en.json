@@ -59,12 +59,8 @@
         "statement": "For over 10 years, we've worked with extraordinary clients to create meaningful impact and memorable experiences."
       },
       "expertices": {
-        "heading": "Our two core specialties",
-        "branding_title": "Branding",
-        "branding_description": "We craft visual identities that communicate the unique character of each brand — from the logo to the full system.",
-        "tecnologia_title": "Technology",
-        "tecnologia_description": "We develop web platforms and applications that combine technical performance with an exceptional user experience.",
-        "cta": "View expertises"
+        "heading": "Explore our services",
+        "cta": "View all services"
       }
     },
     "projects": {
